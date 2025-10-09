@@ -224,7 +224,9 @@ export default function RootLayout({
           <Toaster />
         </Suspense>
         <Analytics />
-        <ScrollToTop />
+        <Suspense fallback={null}>
+          <ScrollToTop />
+        </Suspense>
       </body>
     </html>
   )
