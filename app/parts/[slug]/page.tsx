@@ -62,19 +62,6 @@ export default async function PartPage({ params }: PartPageProps) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-        <Link href="/" className="hover:text-foreground">
-          Home
-        </Link>
-        <ChevronRight className="h-4 w-4" />
-        <Link href="/parts" className="hover:text-foreground">
-          Parts Catalogue
-        </Link>
-        <ChevronRight className="h-4 w-4" />
-        <span className="text-foreground">{part.name}</span>
-      </nav>
-
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Left Column - Image and Info */}
         <div className="space-y-6">

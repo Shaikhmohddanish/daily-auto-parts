@@ -317,7 +317,11 @@ export default function ShippingPage() {
                   </div>
                   <div className="space-y-2">
                     <p className="font-semibold text-gray-900">Email Support</p>
-                    <p className="text-gray-600">Available for tracking assistance</p>
+                    <p className="text-gray-600">
+                      <a href="mailto:support@dailyautoparts.com" className="text-blue-600 hover:underline">
+                        support@dailyautoparts.com
+                      </a>
+                    </p>
                   </div>
                 </CardContent>
               </Card>

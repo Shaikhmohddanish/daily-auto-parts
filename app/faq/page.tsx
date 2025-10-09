@@ -91,7 +91,7 @@ export default function FAQPage() {
         <div className="mb-12 rounded-lg border bg-muted/30 p-8">
           <h2 className="mb-4 text-2xl font-bold">Need More Information?</h2>
           <p className="mb-6 text-muted-foreground">
-            For detailed policies and additional information, check out these resources:
+            For detailed policies and additional information, check out these resources or email us at <a href="mailto:support@dailyautoparts.com" className="text-primary hover:underline">support@dailyautoparts.com</a>:
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             <Button asChild variant="outline" className="justify-start bg-transparent">
@@ -113,7 +113,7 @@ export default function FAQPage() {
         <div className="mb-8 text-center">
           <h2 className="mb-3 text-2xl font-bold">Still Have Questions?</h2>
           <p className="mb-6 text-muted-foreground">
-            Request a quote and our parts specialists will answer your questions and help you find the right part
+            Request a quote below and our parts specialists will answer your questions and help you find the right part. You can also email us at <a href="mailto:support@dailyautoparts.com" className="text-primary hover:underline">support@dailyautoparts.com</a>
           </p>
         </div>
         <RequestQuoteForm />

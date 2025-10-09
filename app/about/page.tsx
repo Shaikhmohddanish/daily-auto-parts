@@ -104,6 +104,12 @@ export default function AboutPage() {
                   </a>
                 </p>
                 <p>
+                  <strong>Email:</strong>{" "}
+                  <a href="mailto:support@dailyautoparts.com" className="text-primary">
+                    support@dailyautoparts.com
+                  </a>
+                </p>
+                <p>
                   <strong>Address:</strong> 4300 W State St, Boise, ID 83703
                 </p>
                 <p>

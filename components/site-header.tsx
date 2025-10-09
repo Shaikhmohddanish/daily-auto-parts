@@ -21,11 +21,23 @@ export function SiteHeader() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="w-full z-50">
+      {/* Top Bar with Phone Number */}
+      <div className="bg-primary text-primary-foreground py-1.5 text-center">
+        <div className="container mx-auto px-4">
+          <a href="tel:8888158187" className="flex items-center justify-center gap-2 text-sm font-medium">
+            <Phone className="h-4 w-4" />
+            Call us: 888-815-8187
+          </a>
+        </div>
+      </div>
+      
+      {/* Main Navigation */}
+      <div className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <nav className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-KaL4YIzb8n9lRgqEzNTkAoU8gB6pbq.png"
+            src="/logo.png"
             alt="Daily Auto Parts Logo"
             width={50}
             height={50}
@@ -82,6 +94,7 @@ export function SiteHeader() {
           </div>
         </div>
       )}
+      </div>
     </header>
   )
 }

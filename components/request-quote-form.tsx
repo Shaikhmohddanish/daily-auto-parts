@@ -388,41 +388,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
         />
       </div>
 
-      <div className="flex items-start gap-3">
-        {isMobile ? (
-          <>
-            <Checkbox
-              id="gdpr"
-              checked={gdprConsent}
-              onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-              className={`h-4 w-4 mt-1 ${errors.gdpr ? "border-destructive" : ""}`}
-            />
-            <Label htmlFor="gdpr" className="text-sm leading-tight cursor-pointer">
-              I agree to the{" "}
-              <Link href="/privacy" className="text-primary hover:underline">
-                Privacy Policy
-              </Link>{" "}
-              and consent to data processing for quote purposes. *
-            </Label>
-          </>
-        ) : (
-          <>
-            <Checkbox
-              id="gdpr"
-              checked={gdprConsent}
-              onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-              className={`mt-0.5 ${errors.gdpr ? "border-destructive" : ""}`}
-            />
-            <Label htmlFor="gdpr" className="text-sm leading-relaxed cursor-pointer">
-              I agree to the{" "}
-              <Link href="/privacy" className="text-primary hover:underline">
-                Privacy Policy
-              </Link>{" "}
-              and consent to the collection and processing of my personal data for quote purposes. *
-            </Label>
-          </>
-        )}
-      </div>
+      
       {errors.gdpr && <p className="text-sm text-destructive">{errors.gdpr}</p>}
 
       <Button type="submit" className="w-full" size="lg">

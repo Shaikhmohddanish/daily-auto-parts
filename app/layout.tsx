@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingPhoneButton } from "@/components/floating-phone-button"
+import { ScrollToTop } from "@/components/scroll-to-top"
 import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 import { Suspense } from "react"
@@ -223,6 +224,7 @@ export default function RootLayout({
           <Toaster />
         </Suspense>
         <Analytics />
+        <ScrollToTop />
       </body>
     </html>
   )

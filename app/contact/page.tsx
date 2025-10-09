@@ -50,8 +50,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="mb-1 font-semibold">Email</h3>
-                      <a href="mailto:info@dailyautoparts.com" className="text-primary hover:underline">
-                        info@dailyautoparts.com
+                      <a href="mailto:support@dailyautoparts.com" className="text-primary hover:underline">
+                        support@dailyautoparts.com
                       </a>
                       <p className="text-sm text-muted-foreground">We'll respond within 24 hours</p>
                     </div>

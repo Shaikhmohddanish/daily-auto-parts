@@ -161,6 +161,10 @@ export default function WarrantyPage() {
                       <a href="tel:8888158187" className="text-primary">
                         888-815-8187
                       </a>{" "}
+                      or email us at{" "}
+                      <a href="mailto:support@dailyautoparts.com" className="text-primary">
+                        support@dailyautoparts.com
+                      </a>{" "}
                       within the warranty period. Do not return parts without authorization.
                     </p>
                   </div>
@@ -313,6 +317,10 @@ export default function WarrantyPage() {
                     <a href="tel:8888158187" className="text-primary">
                       888-815-8187
                     </a>{" "}
+                    or email{" "}
+                    <a href="mailto:support@dailyautoparts.com" className="text-primary">
+                      support@dailyautoparts.com
+                    </a>{" "}
                     to request a return authorization. Do not ship parts back without an RMA number, as they may not be
                     accepted.
                   </p>
@@ -341,6 +349,9 @@ export default function WarrantyPage() {
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
               <Button asChild size="lg">
                 <a href="tel:8888158187">Call 888-815-8187</a>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href="mailto:support@dailyautoparts.com">Email Support</a>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <Link href="/contact">Contact Us</Link>

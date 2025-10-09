@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Phone, MapPin } from "lucide-react"
+import { Phone, MapPin, Mail } from "lucide-react"
 
 export function SiteFooter() {
   const quickLinks = [
@@ -32,6 +32,10 @@ export function SiteFooter() {
               <a href="tel:8888158187" className="flex items-center gap-2 hover:text-primary">
                 <Phone className="h-4 w-4" />
                 888-815-8187
+              </a>
+              <a href="mailto:support@dailyautoparts.com" className="flex items-center gap-2 hover:text-primary">
+                <Mail className="h-4 w-4" />
+                support@dailyautoparts.com
               </a>
               <a
                 href="https://maps.google.com/?q=4300+W+State+St,+Boise,+ID+83703"
