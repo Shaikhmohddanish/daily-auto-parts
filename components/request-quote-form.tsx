@@ -1,9 +1,7 @@
 "use client"
 
 import Link from "next/link"
-
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -32,11 +30,6 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
   const [zip, setZip] = useState("")
   const [vin, setVin] = useState("")
   const [notes, setNotes] = useState("")
-  const [engine, setEngine] = useState("")
-  const [transmission, setTransmission] = useState("")
-  const [drivetrain, setDrivetrain] = useState("")
-  const [fuelType, setFuelType] = useState("")
-  const [bodyStyle, setBodyStyle] = useState("")
   const [gdprConsent, setGdprConsent] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -85,14 +78,12 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
       return
     }
 
-    // Simulate form submission
     setSubmitted(true)
     toast({
       title: "Quote Request Received!",
       description: "Thanks! A parts specialist will contact you shortly.",
     })
 
-    // Fire analytics event
     if (typeof window !== "undefined" && (window as any).gtag) {
       ;(window as any).gtag("event", "lead_submit", {
         brand,
@@ -105,27 +96,26 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
 
   if (submitted) {
     return (
-      <div className="rounded-lg border bg-card p-8 text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-          <svg className="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="rounded-lg bg-muted/20 p-6 text-center">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+          <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="mb-2 text-2xl font-bold">Quote Request Received!</h3>
-        <p className="mb-4 text-muted-foreground">Thanks! A parts specialist will contact you shortly.</p>
-        <div className="rounded-md bg-muted p-4 text-left">
-          <p className="text-sm font-medium">Your Request:</p>
-          <p className="mt-2 text-sm">
-            <span className="font-medium">Vehicle:</span> {year} {brand} {model}
-          </p>
-          <p className="text-sm">
-            <span className="font-medium">Part:</span> {part}
-          </p>
-          <p className="text-sm">
-            <span className="font-medium">Quantity:</span> {quantity}
-          </p>
+        <h3 className="mb-2 text-lg font-bold">Quote Request Received!</h3>
+        <p className="mb-4 text-muted-foreground">
+          Thank you! A parts specialist will contact you shortly with a quote.
+        </p>
+        <div className="rounded-md bg-background p-4 text-left border">
+          <h4 className="font-medium">Your Request Summary:</h4>
+          <div className="mt-2 space-y-1 text-sm">
+            <p><span className="font-medium">Vehicle:</span> {year} {brand} {model}</p>
+            <p><span className="font-medium">Part:</span> {part}</p>
+            <p><span className="font-medium">Quantity:</span> {quantity}</p>
+            <p><span className="font-medium">Contact:</span> {fullName}</p>
+          </div>
         </div>
-        <Button onClick={() => setSubmitted(false)} className="mt-6">
+        <Button onClick={() => setSubmitted(false)} className="mt-4 w-full">
           Submit Another Request
         </Button>
       </div>
@@ -133,51 +123,39 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-lg border bg-card p-6">
-      <div className="space-y-2">
-        <h3 className="text-2xl font-bold">Request a Quote</h3>
-        <p className="text-sm text-muted-foreground">
-          Fill out the form below and we'll get back to you with pricing and availability.
-        </p>
-      </div>
-
-      {/* Vehicle Information */}
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
-        <h4 className="font-semibold">Vehicle Information</h4>
-
+        <h3 className="font-semibold text-lg">Vehicle Information</h3>
+        
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="brand">Brand *</Label>
+            <Label htmlFor="brand">Vehicle Brand *</Label>
             <Select value={brand} onValueChange={setBrand}>
               <SelectTrigger id="brand" className={errors.brand ? "border-destructive" : ""}>
                 <SelectValue placeholder="Select brand" />
               </SelectTrigger>
               <SelectContent>
                 {Object.keys(brandModels).map((b) => (
-                  <SelectItem key={b} value={b}>
-                    {b}
-                  </SelectItem>
+                  <SelectItem key={b} value={b}>{b}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            {errors.brand && <p className="text-xs text-destructive">{errors.brand}</p>}
+            {errors.brand && <p className="text-sm text-destructive">{errors.brand}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="model">Model *</Label>
+            <Label htmlFor="model">Vehicle Model *</Label>
             <Select value={model} onValueChange={setModel} disabled={!brand}>
               <SelectTrigger id="model" className={errors.model ? "border-destructive" : ""}>
                 <SelectValue placeholder="Select model" />
               </SelectTrigger>
               <SelectContent>
                 {availableModels.map((m) => (
-                  <SelectItem key={m} value={m}>
-                    {m}
-                  </SelectItem>
+                  <SelectItem key={m} value={m}>{m}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            {errors.model && <p className="text-xs text-destructive">{errors.model}</p>}
+            {errors.model && <p className="text-sm text-destructive">{errors.model}</p>}
           </div>
         </div>
 
@@ -190,174 +168,85 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
               </SelectTrigger>
               <SelectContent>
                 {years.map((y) => (
-                  <SelectItem key={y} value={y}>
-                    {y}
-                  </SelectItem>
+                  <SelectItem key={y} value={y}>{y}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            {errors.year && <p className="text-xs text-destructive">{errors.year}</p>}
+            {errors.year && <p className="text-sm text-destructive">{errors.year}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="part">Part Needed *</Label>
-            <Select value={part} onValueChange={setPart}>
-              <SelectTrigger id="part" className={errors.part ? "border-destructive" : ""}>
-                <SelectValue placeholder="Select part" />
-              </SelectTrigger>
-              <SelectContent>
-                {parts.map((p) => (
-                  <SelectItem key={p} value={p}>
-                    {p}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {errors.part && <p className="text-xs text-destructive">{errors.part}</p>}
-          </div>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="space-y-2">
-            <Label htmlFor="engine">Engine</Label>
-            <Select value={engine} onValueChange={setEngine}>
-              <SelectTrigger id="engine">
-                <SelectValue placeholder="Select engine type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="I4">I4</SelectItem>
-                <SelectItem value="V6">V6</SelectItem>
-                <SelectItem value="V8">V8</SelectItem>
-                <SelectItem value="Diesel">Diesel</SelectItem>
-                <SelectItem value="Hybrid">Hybrid</SelectItem>
-                <SelectItem value="EV">EV</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="transmission">Transmission</Label>
-            <Select value={transmission} onValueChange={setTransmission}>
-              <SelectTrigger id="transmission">
-                <SelectValue placeholder="Select transmission" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Manual">Manual</SelectItem>
-                <SelectItem value="Automatic">Automatic</SelectItem>
-                <SelectItem value="CVT">CVT</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="drivetrain">Drivetrain</Label>
-            <Select value={drivetrain} onValueChange={setDrivetrain}>
-              <SelectTrigger id="drivetrain">
-                <SelectValue placeholder="Select drivetrain" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="FWD">FWD</SelectItem>
-                <SelectItem value="RWD">RWD</SelectItem>
-                <SelectItem value="AWD">AWD/4x4</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="space-y-2">
-            <Label htmlFor="fuelType">Fuel Type</Label>
-            <Select value={fuelType} onValueChange={setFuelType}>
-              <SelectTrigger id="fuelType">
-                <SelectValue placeholder="Select fuel type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Gasoline">Gasoline</SelectItem>
-                <SelectItem value="Diesel">Diesel</SelectItem>
-                <SelectItem value="Hybrid">Hybrid</SelectItem>
-                <SelectItem value="Electric">Electric</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="bodyStyle">Body Style</Label>
-            <Select value={bodyStyle} onValueChange={setBodyStyle}>
-              <SelectTrigger id="bodyStyle">
-                <SelectValue placeholder="Select body style" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Sedan">Sedan</SelectItem>
-                <SelectItem value="SUV">SUV</SelectItem>
-                <SelectItem value="Truck">Truck</SelectItem>
-                <SelectItem value="Coupe">Coupe</SelectItem>
-                <SelectItem value="Hatchback">Hatchback</SelectItem>
-                <SelectItem value="Van">Van</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="quantity">Quantity *</Label>
-            <Select value={quantity} onValueChange={setQuantity}>
-              <SelectTrigger id="quantity">
-                <SelectValue placeholder="Select quantity" />
-              </SelectTrigger>
-              <SelectContent>
-                {Array.from({ length: 10 }, (_, i) => (i + 1).toString()).map((q) => (
-                  <SelectItem key={q} value={q}>
-                    {q}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Label htmlFor="quantity">Quantity</Label>
+            <Input
+              id="quantity"
+              type="number"
+              min="1"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className={errors.quantity ? "border-destructive" : ""}
+            />
+            {errors.quantity && <p className="text-sm text-destructive">{errors.quantity}</p>}
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="vin">Vehicle VIN (Optional)</Label>
+          <Label htmlFor="part">Part Needed *</Label>
+          <Select value={part} onValueChange={setPart}>
+            <SelectTrigger id="part" className={errors.part ? "border-destructive" : ""}>
+              <SelectValue placeholder="Select part" />
+            </SelectTrigger>
+            <SelectContent>
+              {parts.map((p) => (
+                <SelectItem key={p} value={p}>{p}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {errors.part && <p className="text-sm text-destructive">{errors.part}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="vin">VIN Number (Optional)</Label>
           <Input
             id="vin"
             value={vin}
             onChange={(e) => setVin(e.target.value)}
-            placeholder="For best results, include your VIN"
+            placeholder="Enter VIN for better part matching"
+            maxLength={17}
           />
-          <p className="text-xs text-muted-foreground">Including your VIN helps us match the exact OEM part number</p>
         </div>
       </div>
 
-      {/* Contact Information */}
       <div className="space-y-4">
-        <h4 className="font-semibold">Contact Information</h4>
-
+        <h3 className="font-semibold text-lg">Contact Information</h3>
+        
         <div className="space-y-2">
           <Label htmlFor="fullName">Full Name *</Label>
           <Input
             id="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            placeholder="Enter your full name"
+            placeholder="Your full name"
             className={errors.fullName ? "border-destructive" : ""}
           />
-          {errors.fullName && <p className="text-xs text-destructive">{errors.fullName}</p>}
+          {errors.fullName && <p className="text-sm text-destructive">{errors.fullName}</p>}
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="email">Email *</Label>
+            <Label htmlFor="email">Email Address *</Label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your.email@example.com"
+              placeholder="your@email.com"
               className={errors.email ? "border-destructive" : ""}
             />
-            {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+            {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="phone">Phone *</Label>
+            <Label htmlFor="phone">Phone Number *</Label>
             <Input
               id="phone"
               type="tel"
@@ -366,11 +255,9 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
               placeholder="(555) 123-4567"
               className={errors.phone ? "border-destructive" : ""}
             />
-            {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
+            {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
           </div>
         </div>
-
-        {errors.contact && <p className="text-xs text-destructive">{errors.contact}</p>}
 
         <div className="space-y-2">
           <Label htmlFor="zip">ZIP/Postal Code *</Label>
@@ -378,44 +265,45 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
             id="zip"
             value={zip}
             onChange={(e) => setZip(e.target.value)}
-            placeholder="12345 or A1B 2C3"
+            placeholder="12345"
             className={errors.zip ? "border-destructive" : ""}
           />
-          {errors.zip && <p className="text-xs text-destructive">{errors.zip}</p>}
+          {errors.zip && <p className="text-sm text-destructive">{errors.zip}</p>}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="notes">Additional Notes</Label>
-          <Textarea
-            id="notes"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            placeholder="Any specific requirements or questions?"
-            rows={4}
-          />
-        </div>
+        {errors.contact && <p className="text-sm text-destructive">{errors.contact}</p>}
       </div>
 
-      {/* GDPR Consent */}
-      <div className="flex items-start gap-2">
+      <div className="space-y-2">
+        <Label htmlFor="notes">Additional Notes (Optional)</Label>
+        <Textarea
+          id="notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Any specific requirements or questions about the part..."
+          rows={3}
+        />
+      </div>
+
+      <div className="flex items-start gap-3">
         <Checkbox
           id="gdpr"
           checked={gdprConsent}
           onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-          className={errors.gdpr ? "border-destructive" : ""}
+          className={`mt-0.5 ${errors.gdpr ? "border-destructive" : ""}`}
         />
-        <Label htmlFor="gdpr" className="text-sm leading-relaxed">
-          I agree to the processing of my information per the{" "}
+        <Label htmlFor="gdpr" className="text-sm leading-relaxed cursor-pointer">
+          I agree to the{" "}
           <Link href="/privacy" className="text-primary hover:underline">
             Privacy Policy
-          </Link>
-          . *
+          </Link>{" "}
+          and consent to the collection and processing of my personal data for quote purposes. *
         </Label>
       </div>
-      {errors.gdpr && <p className="text-xs text-destructive">{errors.gdpr}</p>}
+      {errors.gdpr && <p className="text-sm text-destructive">{errors.gdpr}</p>}
 
-      <Button type="submit" size="lg" className="w-full">
-        Submit Quote Request
+      <Button type="submit" className="w-full" size="lg">
+        Request Quote
       </Button>
     </form>
   )

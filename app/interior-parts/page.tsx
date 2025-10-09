@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { PartFitmentTool } from '@/components/part-fitment-tool'
-import { RequestQuoteForm } from '@/components/request-quote-form'
+import { RequestQuoteFormCompact } from '@/components/request-quote-form-compact'
 import { TopBrands } from '@/components/top-brands'
 import { Counter } from '@/components/ui/counter'
 import { Phone, Shield, Truck, Search, CheckCircle, Star, Clock, Award } from 'lucide-react'
@@ -130,27 +130,44 @@ export default function InteriorPartsPage() {
       </section>
 
       {/* Vehicle Selection and Quote Form */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Find Your Right Part
-            </h2>
-            <p className="text-xl text-gray-600">
-              Select your vehicle details to find the perfect auto part
-            </p>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-7xl mx-auto">
-            <div className="h-full">
-              <PartFitmentTool />
+              <section className="py-12 sm:py-16 lg:py-20 bg-card">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-6 sm:mb-8 lg:mb-12">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 lg:mb-6">Find Your Right Part</h2>
+              <p className="text-muted-foreground text-sm sm:text-base lg:text-lg max-w-3xl mx-auto">
+                Use our fitment tool and quote system to find compatible interior parts for your vehicle
+              </p>
             </div>
-            <div className="h-full">
-              <RequestQuoteForm />
+            
+            <div className="max-w-6xl mx-auto">
+              {/* Single Card with Internal Layout */}
+              <Card className="w-full">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  {/* Mobile: Compact stacked, Desktop: Side by side */}
+                  <div className="space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-8">
+                    {/* Fitment Tool */}
+                    <div className="lg:border-r lg:pr-8">
+                      <div className="mb-4">
+                        <h3 className="text-lg font-semibold mb-2">Check Compatibility</h3>
+                        <p className="text-sm text-muted-foreground">Verify part fitment for your vehicle</p>
+                      </div>
+                      <PartFitmentTool />
+                    </div>
+                    
+                    {/* Quote Form */}
+                    <div className="lg:pl-0">
+                      <div className="mb-4">
+                        <h3 className="text-lg font-semibold mb-2">Get Quote</h3>
+                        <p className="text-sm text-muted-foreground">Request pricing and availability</p>
+                      </div>
+                      <RequestQuoteFormCompact initialPart="Interior Parts" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* About Interior Parts */}
       <section className="py-16 bg-gray-50">

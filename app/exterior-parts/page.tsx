@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { RequestQuoteForm } from "@/components/request-quote-form"
+import { RequestQuoteFormCompact } from "@/components/request-quote-form-compact"
 import { PartFitmentTool } from "@/components/part-fitment-tool"
 import { Counter } from "@/components/ui/counter"
 import { TopBrands } from "@/components/top-brands"
@@ -59,22 +59,38 @@ export default function ExteriorPartsPage() {
           </div>
 
           {/* Find Your Right Part Section */}
-          <Card className="max-w-6xl mx-auto">
-            <CardHeader className="text-center pb-8">
-              <CardTitle className="text-2xl">Find Your Right Part</CardTitle>
-              <p className="text-muted-foreground">Select your vehicle details to find the perfect auto part</p>
-            </CardHeader>
-            <CardContent className="px-8 pb-8">
-              <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-                <div className="h-full">
-                  <PartFitmentTool />
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Find Your Right Part</h2>
+              <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">Select your vehicle details to find the perfect auto part</p>
+            </div>
+            
+            {/* Single Card with Internal Layout */}
+            <Card className="w-full">
+              <CardContent className="p-4 sm:p-6 lg:p-8">
+                {/* Mobile: Compact stacked, Desktop: Side by side */}
+                <div className="space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-8">
+                  {/* Fitment Tool */}
+                  <div className="lg:border-r lg:pr-8">
+                    <div className="mb-4">
+                      <h3 className="text-lg font-semibold mb-2">Check Compatibility</h3>
+                      <p className="text-sm text-muted-foreground">Verify part fitment for your vehicle</p>
+                    </div>
+                    <PartFitmentTool />
+                  </div>
+                  
+                  {/* Quote Form */}
+                  <div className="lg:pl-0">
+                    <div className="mb-4">
+                      <h3 className="text-lg font-semibold mb-2">Get Quote</h3>
+                      <p className="text-sm text-muted-foreground">Request pricing and availability</p>
+                    </div>
+                    <RequestQuoteFormCompact initialPart="Exterior Parts" />
+                  </div>
                 </div>
-                <div className="h-full">
-                  <RequestQuoteForm initialPart="Exterior Parts" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
