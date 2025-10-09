@@ -52,132 +52,61 @@
   }
 }
 
-:root {
-  /* Custom theme for Daily Auto Parts - professional automotive brand */
-  --background: oklch(1 0 0); /* Pure white */
-  --foreground: oklch(0.145 0 0); /* Charcoal #111 */
-  --card: oklch(0.99 0 0); /* Off-white for cards */
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.628 0.176 237.267); /* Sky blue #0EA5E9 */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0 0); /* Light gray */
-  --secondary-foreground: oklch(0.145 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.5 0 0);
-  --accent: oklch(0.628 0.176 237.267); /* Sky blue accent */
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9 0 0);
-  --input: oklch(0.95 0 0);
-  --ring: oklch(0.628 0.176 237.267);
-  --chart-1: oklch(0.628 0.176 237.267);
-  --chart-2: oklch(0.5 0.15 200);
-  --chart-3: oklch(0.4 0.1 180);
-  --chart-4: oklch(0.7 0.12 220);
-  --chart-5: oklch(0.6 0.14 240);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.628 0.176 237.267);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.95 0 0);
-  --sidebar-accent-foreground: oklch(0.145 0 0);
-  --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0.628 0.176 237.267);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.628 0.176 237.267);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.25 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.25 0 0);
-  --muted-foreground: oklch(0.7 0 0);
-  --accent: oklch(0.628 0.176 237.267);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.5 0.2 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.25 0 0);
-  --input: oklch(0.25 0 0);
-  --ring: oklch(0.628 0.176 237.267);
-  --chart-1: oklch(0.628 0.176 237.267);
-  --chart-2: oklch(0.6 0.15 200);
-  --chart-3: oklch(0.5 0.1 180);
-  --chart-4: oklch(0.7 0.12 220);
-  --chart-5: oklch(0.65 0.14 240);
-  --sidebar: oklch(0.18 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.628 0.176 237.267);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.25 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.25 0 0);
-  --sidebar-ring: oklch(0.628 0.176 237.267);
-}
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    /* Daily Auto Parts - Electric Blue Theme */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 220 79% 9%; /* #0B1220 */
+    --card: 220 20% 98%; /* #F8FAFC */
+    --card-foreground: 220 79% 9%; /* #0B1220 */
+    --popover: 0 0% 100%; /* #FFFFFF */
+    --popover-foreground: 220 79% 9%; /* #0B1220 */
+    --primary: 227 77% 57%; /* #2563EB (electric blue) */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --secondary: 220 20% 98%; /* #F8FAFC */
+    --secondary-foreground: 220 79% 9%; /* #0B1220 */
+    --muted: 220 14% 96%; /* #F1F5F9 */
+    --muted-foreground: 220 9% 46%; /* #64748B */
+    --accent: 199 89% 48%; /* #0EA5E9 (light blue) */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF */
+    --destructive: 0 84% 60%; /* #EF4444 */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF */
+    --border: 220 13% 91%; /* #E2E8F0 */
+    --input: 220 13% 91%; /* #E2E8F0 */
+    --ring: 227 77% 57%; /* #2563EB */
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: 227 77% 57%; /* #2563EB */
+    --chart-2: 199 89% 48%; /* #0EA5E9 */
+    --chart-3: 158 64% 52%; /* #10B981 */
+    --chart-4: 43 96% 56%; /* #F59E0B */
+    --chart-5: 262 83% 58%; /* #8B5CF6 */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: 220 79% 9%; /* #0B1220 */
+    --foreground: 0 0% 98%; /* #FAFAFA */
+    --card: 220 50% 12%; /* #1E293B */
+    --card-foreground: 0 0% 98%; /* #FAFAFA */
+    --popover: 220 79% 9%; /* #0B1220 */
+    --popover-foreground: 0 0% 98%; /* #FAFAFA */
+    --primary: 227 77% 57%; /* #2563EB */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --secondary: 220 50% 12%; /* #1E293B */
+    --secondary-foreground: 0 0% 98%; /* #FAFAFA */
+    --muted: 220 39% 18%; /* #334155 */
+    --muted-foreground: 220 9% 46%; /* #64748B */
+    --accent: 199 89% 48%; /* #0EA5E9 */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF */
+    --destructive: 0 84% 60%; /* #EF4444 */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF */
+    --border: 220 39% 18%; /* #334155 */
+    --input: 220 39% 18%; /* #334155 */
+    --ring: 227 77% 57%; /* #2563EB */
+    --chart-1: 227 77% 57%; /* #2563EB */
+    --chart-2: 199 89% 48%; /* #0EA5E9 */
+    --chart-3: 158 64% 52%; /* #10B981 */
+    --chart-4: 43 96% 56%; /* #F59E0B */
+    --chart-5: 262 83% 58%; /* #8B5CF6 */
   }
 
   * {
