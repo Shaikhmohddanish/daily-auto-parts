@@ -64,14 +64,14 @@ export default function ContactPage() {
                     <div>
                       <h3 className="mb-1 font-semibold">Address</h3>
                       <a
-                        href="https://maps.google.com/?q=30+N+Gould+St,+STE+N,+Sheridan,+WY+82801"
+                        href="https://maps.google.com/?q=4300+W+State+St,+Boise,+ID+83703"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-primary hover:underline"
                       >
-                        30 N Gould St, STE N
+                        4300 W State St
                         <br />
-                        Sheridan, WY 82801
+                        Boise, ID 83703
                       </a>
                       <p className="mt-1 text-sm text-muted-foreground">View on Google Maps</p>
                     </div>
@@ -176,7 +176,7 @@ export default function ContactPage() {
             <CardContent className="p-0">
               <div className="aspect-video w-full overflow-hidden rounded-lg">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2799.123456789!2d-106.9561!3d44.7967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDTCsDQ3JzQ4LjEiTiAxMDbCsDU3JzIyLjAiVw!5e0!3m2!1sen!2sus!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2884.8427010521534!2d-116.24316384775265!3d43.6499325734065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54ae57e885f011b1%3A0xa1a8fab9966a6531!2s4300%20W%20State%20St%2C%20Boise%2C%20ID%2083703!5e0!3m2!1sen!2sus!4v1633526872642"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

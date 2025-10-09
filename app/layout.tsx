@@ -140,16 +140,16 @@ export default function RootLayout({
               priceRange: "$$",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "30 N Gould St, STE N",
-                addressLocality: "Sheridan",
-                addressRegion: "WY",
-                postalCode: "82801",
+                streetAddress: "4300 W State St",
+                addressLocality: "Boise",
+                addressRegion: "ID",
+                postalCode: "83703",
                 addressCountry: "US",
               },
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: "44.7969",
-                longitude: "-106.9561",
+                latitude: "43.6499325",
+                longitude: "-116.2431638",
               },
               openingHoursSpecification: [
                 {

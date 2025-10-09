@@ -34,15 +34,15 @@ export function SiteFooter() {
                 888-888-8888
               </a>
               <a
-                href="https://maps.google.com/?q=30+N+Gould+St,+STE+N,+Sheridan,+WY+82801"
+                href="https://maps.google.com/?q=4300+W+State+St,+Boise,+ID+83703"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 hover:text-primary"
               >
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>
-                  30 N Gould St, STE N<br />
-                  Sheridan, WY 82801
+                  4300 W State St<br />
+                  Boise, ID 83703
                 </span>
               </a>
             </div>

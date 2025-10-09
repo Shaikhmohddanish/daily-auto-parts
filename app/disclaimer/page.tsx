@@ -131,9 +131,9 @@ export default function DisclaimerPage() {
               <p>
                 <strong className="text-foreground">Daily Auto Parts</strong>
                 <br />
-                30 N Gould St, STE N
+                4300 W State St
                 <br />
-                Sheridan, WY 82801
+                Boise, ID 83703
                 <br />
                 Phone:{" "}
                 <a href="tel:8888888888" className="text-primary">

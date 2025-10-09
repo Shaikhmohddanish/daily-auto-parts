@@ -92,7 +92,7 @@ export default function AboutPage() {
             <div className="space-y-4 text-muted-foreground">
               <p>
                 We ship auto parts throughout the United States, serving individual customers, mechanics, and repair
-                shops from coast to coast. Our centralized location in Sheridan, Wyoming, combined with our nationwide
+                shops from coast to coast. Our centralized location in Boise, Idaho, combined with our nationwide
                 supplier network, allows us to source and deliver parts efficiently.
               </p>
               <div className="rounded-lg bg-muted p-4">
@@ -104,7 +104,7 @@ export default function AboutPage() {
                   </a>
                 </p>
                 <p>
-                  <strong>Address:</strong> 30 N Gould St, STE N, Sheridan, WY 82801
+                  <strong>Address:</strong> 4300 W State St, Boise, ID 83703
                 </p>
                 <p>
                   <strong>Hours:</strong> Monday - Saturday, 8:00 AM - 6:00 PM MT

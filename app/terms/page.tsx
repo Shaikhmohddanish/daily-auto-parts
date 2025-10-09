@@ -143,11 +143,11 @@ export default function TermsPage() {
             <div className="space-y-3 text-muted-foreground">
               <p>
                 These Terms and Conditions shall be governed by and construed in accordance with the laws of the State
-                of Wyoming, without regard to its conflict of law provisions.
+                of Idaho, without regard to its conflict of law provisions.
               </p>
               <p>
                 Any disputes arising out of or relating to these terms or our services shall be resolved through binding
-                arbitration in Sheridan County, Wyoming, except that either party may seek injunctive relief in court.
+                arbitration in Ada County, Idaho, except that either party may seek injunctive relief in court.
               </p>
             </div>
           </section>
@@ -168,9 +168,9 @@ export default function TermsPage() {
               <p>
                 <strong className="text-foreground">Daily Auto Parts</strong>
                 <br />
-                30 N Gould St, STE N
+                4300 W State St
                 <br />
-                Sheridan, WY 82801
+                Boise, ID 83703
                 <br />
                 Phone:{" "}
                 <a href="tel:8888888888" className="text-primary">
