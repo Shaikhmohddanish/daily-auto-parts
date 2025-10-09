@@ -1,0 +1,28 @@
+{
+  "name": "Daily Auto Parts",
+  "short_name": "Daily Auto Parts",
+  "description": "Quality OEM and used auto parts with fast quotes and reliable service",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1f2937",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["business", "automotive", "shopping"],
+  "lang": "en-US",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "id": "dailyautoparts"
+}
