@@ -56,15 +56,15 @@ export function PartFitmentTool() {
           </p>
           
           {isMobile ? (
-            <div className="grid gap-4">
-              {/* Mobile Layout - 2 rows with 2 items per row */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="fitment-brand" className="text-sm font-medium">
+            <div className="space-y-4">
+              {/* Mobile Layout - stacked for better mobile experience */}
+              <div className="space-y-3">
+                <div>
+                  <Label htmlFor="fitment-brand-mobile" className="text-sm font-medium block mb-1.5">
                     Brand
                   </Label>
                   <Select value={brand} onValueChange={setBrand}>
-                    <SelectTrigger id="fitment-brand" className="h-10">
+                    <SelectTrigger id="fitment-brand-mobile" className="h-11 w-full">
                       <SelectValue placeholder="Select brand" />
                     </SelectTrigger>
                     <SelectContent>
@@ -77,12 +77,12 @@ export function PartFitmentTool() {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="fitment-model" className="text-sm font-medium">
+                <div>
+                  <Label htmlFor="fitment-model-mobile" className="text-sm font-medium block mb-1.5">
                     Model
                   </Label>
                   <Select value={model} onValueChange={setModel} disabled={!brand}>
-                    <SelectTrigger id="fitment-model" className="h-10">
+                    <SelectTrigger id="fitment-model-mobile" className="h-11 w-full">
                       <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
                     </SelectTrigger>
                     <SelectContent>
@@ -94,15 +94,13 @@ export function PartFitmentTool() {
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="fitment-year" className="text-sm font-medium">
+                <div>
+                  <Label htmlFor="fitment-year-mobile" className="text-sm font-medium block mb-1.5">
                     Year
                   </Label>
                   <Select value={year} onValueChange={setYear}>
-                    <SelectTrigger id="fitment-year" className="h-10">
+                    <SelectTrigger id="fitment-year-mobile" className="h-11 w-full">
                       <SelectValue placeholder="Select year" />
                     </SelectTrigger>
                     <SelectContent>
@@ -114,17 +112,17 @@ export function PartFitmentTool() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="self-end">
-                  <Button 
-                    onClick={handleCheck} 
-                    disabled={!isComplete}
-                    className="w-full h-10"
-                    size="sm"
-                  >
-                    <Search className="h-4 w-4 mr-1" />
-                    Check Fit
-                  </Button>
-                </div>
+              </div>
+
+              <div className="pt-1">
+                <Button 
+                  onClick={handleCheck} 
+                  disabled={!isComplete}
+                  className="w-full h-11"
+                >
+                  <Search className="h-4 w-4 mr-2" />
+                  Check Fit
+                </Button>
               </div>
             </div>
           ) : (
@@ -200,13 +198,13 @@ export function PartFitmentTool() {
           )}
 
           {isSubmitted && isComplete && (
-            <div className="mt-4 p-3 rounded-lg bg-green-50 border border-green-200 text-green-800 flex items-start gap-3">
+            <div className="mt-4 p-3 sm:p-4 rounded-lg bg-green-50 border border-green-200 text-green-800 flex items-start gap-3">
               <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
               <div className="space-y-1">
                 <p className="font-medium">
                   Compatible with your {year} {brand} {model}
                 </p>
-                <p className="text-sm text-green-700">
+                <p className={`${isMobile ? "text-xs" : "text-sm"} text-green-700`}>
                   This part fits your vehicle. Include your VIN at checkout for the most accurate fitment.
                 </p>
               </div>
@@ -215,36 +213,71 @@ export function PartFitmentTool() {
         </div>
       </CardContent>
       
-      <CardFooter className="px-4 py-4 sm:px-6 sm:py-5 bg-gray-50 border-t flex flex-col sm:flex-row gap-4 justify-between">
-        <div className="grid grid-cols-2 gap-3 w-full">
-          <div className="flex items-start gap-2">
-            <Shield className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-            <div>
-              <p className="text-xs font-medium">Proper Compatibility</p>
-              <p className="text-xs text-muted-foreground">Guaranteed fit for your vehicle</p>
+      <CardFooter className="px-4 py-4 sm:px-6 sm:py-5 bg-gray-50 border-t">
+        <div className="w-full">
+          {isMobile ? (
+            <div className="flex flex-col gap-4">
+              <div className="flex items-start gap-2.5">
+                <Shield className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium">Proper Compatibility</p>
+                  <p className="text-xs text-muted-foreground">Guaranteed fit for your vehicle</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium">Prevents Issues</p>
+                  <p className="text-xs text-muted-foreground">Avoid installation problems</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <DollarSign className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium">Saves Money</p>
+                  <p className="text-xs text-muted-foreground">No returns or exchanges needed</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <Car className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium">Guaranteed Function</p>
+                  <p className="text-xs text-muted-foreground">Parts work as intended</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <CheckCircle className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-            <div>
-              <p className="text-xs font-medium">Prevents Issues</p>
-              <p className="text-xs text-muted-foreground">Avoid installation problems</p>
+          ) : (
+            <div className="grid grid-cols-2 gap-3 w-full">
+              <div className="flex items-start gap-2">
+                <Shield className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-xs font-medium">Proper Compatibility</p>
+                  <p className="text-xs text-muted-foreground">Guaranteed fit for your vehicle</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-xs font-medium">Prevents Issues</p>
+                  <p className="text-xs text-muted-foreground">Avoid installation problems</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <DollarSign className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-xs font-medium">Saves Money</p>
+                  <p className="text-xs text-muted-foreground">No returns or exchanges needed</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <Car className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-xs font-medium">Guaranteed Function</p>
+                  <p className="text-xs text-muted-foreground">Parts work as intended</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <DollarSign className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-            <div>
-              <p className="text-xs font-medium">Saves Money</p>
-              <p className="text-xs text-muted-foreground">No returns or exchanges needed</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <Car className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-            <div>
-              <p className="text-xs font-medium">Guaranteed Function</p>
-              <p className="text-xs text-muted-foreground">Parts work as intended</p>
-            </div>
-          </div>
+          )}
         </div>
       </CardFooter>
     </Card>

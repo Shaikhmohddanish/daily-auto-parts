@@ -231,34 +231,6 @@ export default function ExteriorPartsPage() {
         </div>
       </section>
 
-      {/* Vehicle Brands Section */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">We have used engines for trucks, SUV's, hybrids, foreign & domestic cars such as:</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {vehicleBrands.map((brand) => (
-              <Card key={brand.name}>
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-3">{brand.name}</h3>
-                  <div className="space-y-1">
-                    {brand.models.map((model) => (
-                      <p key={model} className="text-sm text-muted-foreground">{model}</p>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <p className="text-lg">
-              Each and every used engine is inspected, cleaned, and guaranteed for six months. There is no auto parts store 
-              that is big enough to house each and every part that has ever been made, but if we don't have it, our team of 
-              experts will find it for you.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Stats Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">

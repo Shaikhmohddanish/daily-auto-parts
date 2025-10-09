@@ -93,60 +93,61 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
     }
 
     setIsLoading(true)
-    
-    // Simulate form submission with a delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    setIsLoading(false)
-    setSubmitted(true)
-    
-    toast({
-      title: "Quote Request Received!",
-      description: "Thanks! A parts specialist will contact you shortly.",
-    })
 
-    // Fire analytics event
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      ;(window as any).gtag("event", "lead_submit", {
-        brand,
-        model,
-        year,
-        part,
+    // Simulate API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      toast({
+        title: "Quote request sent!",
+        description: "We'll get back to you shortly with pricing information.",
       })
+      
+      setSubmitted(true)
+      setIsLoading(false)
+      
+      // Reset form
+      setBrand("")
+      setModel("")
+      setYear("")
+      setPart("")
+      setFullName("")
+      setEmail("")
+      setPhone("")
+      setZip("")
+      setVin("")
+      setGdprConsent(false)
+      setActiveStep(1)
+      
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+        variant: "destructive",
+      })
+      setIsLoading(false)
     }
   }
-
+  
+  // Show success message after submission
   if (submitted) {
     return (
-      <Card className="overflow-hidden border-2 border-primary/20">
-        <CardContent className="pt-6 px-4 sm:px-6 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-50 border border-green-200">
-            <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      <Card>
+        <CardContent className="pt-6 flex flex-col items-center text-center">
+          <div className="rounded-full bg-green-100 p-3 mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 11L12 14L22 4" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h3 className="mb-2 text-xl font-bold text-green-700">Quote Request Received!</h3>
-          <p className="mb-6 text-muted-foreground">
-            Thank you for your request. A parts specialist will contact you shortly.
+          <h3 className="text-xl font-bold mb-2">Quote Request Received</h3>
+          <p className="text-muted-foreground mb-4">
+            Thank you for submitting your quote request. Our team will review your information and get back to you shortly with pricing and availability details.
           </p>
-          
-          <div className="mb-6 rounded-lg bg-slate-50 p-4 text-left border border-slate-200">
-            <div className="flex items-center gap-3 mb-3 pb-3 border-b border-slate-200">
-              <Car className="h-5 w-5 text-primary" />
-              <div>
-                <p className="text-xs text-slate-500">Vehicle</p>
-                <p className="font-medium">{year} {brand} {model}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <FileText className="h-5 w-5 text-primary" />
-              <div>
-                <p className="text-xs text-slate-500">Part</p>
-                <p className="font-medium">{part}</p>
-              </div>
-            </div>
-          </div>
-          
-          <Button onClick={() => setSubmitted(false)} variant="outline" className="w-full">
+          <Button 
+            onClick={() => setSubmitted(false)}
+            className="mt-2"
+          >
             Submit Another Request
           </Button>
         </CardContent>
@@ -193,10 +194,13 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                 
                 {isMobile ? (
                   <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="brand" className="text-sm">Brand <span className="text-destructive">*</span></Label>
+                    {/* Mobile layout - vertically stacked */}
+                    <div>
+                      <Label htmlFor="brand-mobile" className="text-sm font-medium block mb-1.5">
+                        Brand <span className="text-destructive">*</span>
+                      </Label>
                       <Select value={brand} onValueChange={setBrand}>
-                        <SelectTrigger id="brand" className={`h-10 ${errors.brand ? "border-destructive" : ""}`}>
+                        <SelectTrigger id="brand-mobile" className={`h-11 w-full ${errors.brand ? "border-destructive" : ""}`}>
                           <SelectValue placeholder="Select brand" />
                         </SelectTrigger>
                         <SelectContent>
@@ -210,10 +214,12 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                       {errors.brand && <p className="text-xs text-destructive mt-1">{errors.brand}</p>}
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="model" className="text-sm">Model <span className="text-destructive">*</span></Label>
+                    <div>
+                      <Label htmlFor="model-mobile" className="text-sm font-medium block mb-1.5">
+                        Model <span className="text-destructive">*</span>
+                      </Label>
                       <Select value={model} onValueChange={setModel} disabled={!brand}>
-                        <SelectTrigger id="model" className={`h-10 ${errors.model ? "border-destructive" : ""}`}>
+                        <SelectTrigger id="model-mobile" className={`h-11 w-full ${errors.model ? "border-destructive" : ""}`}>
                           <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
                         </SelectTrigger>
                         <SelectContent>
@@ -227,10 +233,12 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                       {errors.model && <p className="text-xs text-destructive mt-1">{errors.model}</p>}
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="year" className="text-sm">Year <span className="text-destructive">*</span></Label>
+                    <div>
+                      <Label htmlFor="year-mobile" className="text-sm font-medium block mb-1.5">
+                        Year <span className="text-destructive">*</span>
+                      </Label>
                       <Select value={year} onValueChange={setYear}>
-                        <SelectTrigger id="year" className={`h-10 ${errors.year ? "border-destructive" : ""}`}>
+                        <SelectTrigger id="year-mobile" className={`h-11 w-full ${errors.year ? "border-destructive" : ""}`}>
                           <SelectValue placeholder="Select year" />
                         </SelectTrigger>
                         <SelectContent>
@@ -244,10 +252,12 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                       {errors.year && <p className="text-xs text-destructive mt-1">{errors.year}</p>}
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="part" className="text-sm">Part <span className="text-destructive">*</span></Label>
+                    <div>
+                      <Label htmlFor="part-mobile" className="text-sm font-medium block mb-1.5">
+                        Part <span className="text-destructive">*</span>
+                      </Label>
                       <Select value={part} onValueChange={setPart}>
-                        <SelectTrigger id="part" className={`h-10 ${errors.part ? "border-destructive" : ""}`}>
+                        <SelectTrigger id="part-mobile" className={`h-11 w-full ${errors.part ? "border-destructive" : ""}`}>
                           <SelectValue placeholder="Select part" />
                         </SelectTrigger>
                         <SelectContent>
@@ -263,161 +273,87 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                   </div>
                 ) : (
                   <>
-                    {isMobile ? (
-                      <div className="space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="brand" className="text-sm">Brand <span className="text-destructive">*</span></Label>
-                          <Select value={brand} onValueChange={setBrand}>
-                            <SelectTrigger id="brand" className={`h-10 ${errors.brand ? "border-destructive" : ""}`}>
-                              <SelectValue placeholder="Select brand" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {Object.keys(brandModels).map((b) => (
-                                <SelectItem key={b} value={b}>
-                                  {b}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          {errors.brand && <p className="text-xs text-destructive mt-1">{errors.brand}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="model" className="text-sm">Model <span className="text-destructive">*</span></Label>
-                          <Select value={model} onValueChange={setModel} disabled={!brand}>
-                            <SelectTrigger id="model" className={`h-10 ${errors.model ? "border-destructive" : ""}`}>
-                              <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {availableModels.map((m) => (
-                                <SelectItem key={m} value={m}>
-                                  {m}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          {errors.model && <p className="text-xs text-destructive mt-1">{errors.model}</p>}
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="year" className="text-sm">Year <span className="text-destructive">*</span></Label>
-                          <Select value={year} onValueChange={setYear}>
-                            <SelectTrigger id="year" className={`h-10 ${errors.year ? "border-destructive" : ""}`}>
-                              <SelectValue placeholder="Select year" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {years.map((y) => (
-                                <SelectItem key={y} value={y}>
-                                  {y}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          {errors.year && <p className="text-xs text-destructive mt-1">{errors.year}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="part" className="text-sm">Part <span className="text-destructive">*</span></Label>
-                          <Select value={part} onValueChange={setPart}>
-                            <SelectTrigger id="part" className={`h-10 ${errors.part ? "border-destructive" : ""}`}>
-                              <SelectValue placeholder="Select part" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {parts.map((p) => (
-                                <SelectItem key={p} value={p}>
-                                  {p}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          {errors.part && <p className="text-xs text-destructive mt-1">{errors.part}</p>}
-                        </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="brand-desktop" className="text-sm">Brand <span className="text-destructive">*</span></Label>
+                        <Select value={brand} onValueChange={setBrand}>
+                          <SelectTrigger id="brand-desktop" className={`h-10 ${errors.brand ? "border-destructive" : ""}`}>
+                            <SelectValue placeholder="Select brand" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Object.keys(brandModels).map((b) => (
+                              <SelectItem key={b} value={b}>
+                                {b}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.brand && <p className="text-xs text-destructive mt-1">{errors.brand}</p>}
                       </div>
-                      ) : (
-                        <>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="brand" className="text-sm">Brand <span className="text-destructive">*</span></Label>
-                              <Select value={brand} onValueChange={setBrand}>
-                                <SelectTrigger id="brand" className={`h-10 ${errors.brand ? "border-destructive" : ""}`}>
-                                  <SelectValue placeholder="Select brand" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {Object.keys(brandModels).map((b) => (
-                                    <SelectItem key={b} value={b}>
-                                      {b}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              {errors.brand && <p className="text-xs text-destructive mt-1">{errors.brand}</p>}
-                            </div>
 
-                            <div className="space-y-2">
-                              <Label htmlFor="model" className="text-sm">Model <span className="text-destructive">*</span></Label>
-                              <Select value={model} onValueChange={setModel} disabled={!brand}>
-                                <SelectTrigger id="model" className={`h-10 ${errors.model ? "border-destructive" : ""}`}>
-                                  <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {availableModels.map((m) => (
-                                    <SelectItem key={m} value={m}>
-                                      {m}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              {errors.model && <p className="text-xs text-destructive mt-1">{errors.model}</p>}
-                            </div>
-                          </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="model-desktop" className="text-sm">Model <span className="text-destructive">*</span></Label>
+                        <Select value={model} onValueChange={setModel} disabled={!brand}>
+                          <SelectTrigger id="model-desktop" className={`h-10 ${errors.model ? "border-destructive" : ""}`}>
+                            <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {availableModels.map((m) => (
+                              <SelectItem key={m} value={m}>
+                                {m}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.model && <p className="text-xs text-destructive mt-1">{errors.model}</p>}
+                      </div>
+                    </div>
 
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="year" className="text-sm">Year <span className="text-destructive">*</span></Label>
-                              <Select value={year} onValueChange={setYear}>
-                                <SelectTrigger id="year" className={`h-10 ${errors.year ? "border-destructive" : ""}`}>
-                                  <SelectValue placeholder="Select year" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {years.map((y) => (
-                                    <SelectItem key={y} value={y}>
-                                      {y}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              {errors.year && <p className="text-xs text-destructive mt-1">{errors.year}</p>}
-                            </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="year-desktop" className="text-sm">Year <span className="text-destructive">*</span></Label>
+                        <Select value={year} onValueChange={setYear}>
+                          <SelectTrigger id="year-desktop" className={`h-10 ${errors.year ? "border-destructive" : ""}`}>
+                            <SelectValue placeholder="Select year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((y) => (
+                              <SelectItem key={y} value={y}>
+                                {y}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.year && <p className="text-xs text-destructive mt-1">{errors.year}</p>}
+                      </div>
 
-                            <div className="space-y-2">
-                              <Label htmlFor="part" className="text-sm">Part <span className="text-destructive">*</span></Label>
-                              <Select value={part} onValueChange={setPart}>
-                                <SelectTrigger id="part" className={`h-10 ${errors.part ? "border-destructive" : ""}`}>
-                                  <SelectValue placeholder="Select part" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {parts.map((p) => (
-                                    <SelectItem key={p} value={p}>
-                                      {p}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              {errors.part && <p className="text-xs text-destructive mt-1">{errors.part}</p>}
-                            </div>
-                          </div>
-                        </>
-                      )}
+                      <div className="space-y-2">
+                        <Label htmlFor="part-desktop" className="text-sm">Part <span className="text-destructive">*</span></Label>
+                        <Select value={part} onValueChange={setPart}>
+                          <SelectTrigger id="part-desktop" className={`h-10 ${errors.part ? "border-destructive" : ""}`}>
+                            <SelectValue placeholder="Select part" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {parts.map((p) => (
+                              <SelectItem key={p} value={p}>
+                                {p}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.part && <p className="text-xs text-destructive mt-1">{errors.part}</p>}
+                      </div>
+                    </div>
                   </>
                 )}
 
-                <div className="pt-2">
+                <div className="pt-3">
                   <Button 
                     type="button"
                     onClick={handleNext}
-                    className="w-full"
+                    className="w-full h-11 text-base"
                   >
-                    Next
+                    Next Step
                   </Button>
                 </div>
               </div>
@@ -433,76 +369,95 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                 <div className="space-y-4">
                   {isMobile ? (
                     <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="fullName" className="text-sm">Name <span className="text-destructive">*</span></Label>
+                      <div>
+                        <Label htmlFor="fullName-mobile" className="text-sm font-medium block mb-1.5">Name <span className="text-destructive">*</span></Label>
                         <Input
-                          id="fullName"
+                          id="fullName-mobile"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           placeholder="Your full name"
-                          className={`h-10 ${errors.fullName ? "border-destructive" : ""}`}
+                          className={`h-11 ${errors.fullName ? "border-destructive" : ""}`}
                         />
                         {errors.fullName && <p className="text-xs text-destructive mt-1">{errors.fullName}</p>}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="email" className="text-sm">Email <span className="text-destructive">*</span></Label>
+                      <div>
+                        <Label htmlFor="email-mobile" className="text-sm font-medium block mb-1.5">Email <span className="text-destructive">*</span></Label>
                         <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
-                            id="email"
+                            id="email-mobile"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="your@email.com"
-                            className={`h-10 pl-10 ${errors.email ? "border-destructive" : ""}`}
+                            className={`h-11 pl-10 ${errors.email ? "border-destructive" : ""}`}
                           />
                         </div>
                         {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="phone" className="text-sm">Phone <span className="text-destructive">*</span></Label>
+                      <div>
+                        <Label htmlFor="phone-mobile" className="text-sm font-medium block mb-1.5">Phone <span className="text-destructive">*</span></Label>
                         <div className="relative">
-                          <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
-                            id="phone"
+                            id="phone-mobile"
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="(555) 123-4567"
-                            className={`h-10 pl-10 ${errors.phone ? "border-destructive" : ""}`}
+                            className={`h-11 pl-10 ${errors.phone ? "border-destructive" : ""}`}
                           />
                         </div>
                         {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="zip" className="text-sm">ZIP Code <span className="text-destructive">*</span></Label>
+                      <div>
+                        <Label htmlFor="zip-mobile" className="text-sm font-medium block mb-1.5">ZIP Code <span className="text-destructive">*</span></Label>
                         <div className="relative">
-                          <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
-                            id="zip"
+                            id="zip-mobile"
                             value={zip}
                             onChange={(e) => setZip(e.target.value)}
                             placeholder="12345"
-                            className={`h-10 pl-10 ${errors.zip ? "border-destructive" : ""}`}
+                            className={`h-11 pl-10 ${errors.zip ? "border-destructive" : ""}`}
                           />
                         </div>
                         {errors.zip && <p className="text-xs text-destructive mt-1">{errors.zip}</p>}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="vin" className="text-sm">VIN (Optional)</Label>
+                      <div>
+                        <Label htmlFor="vin-mobile" className="text-sm font-medium block mb-1.5">VIN (Optional)</Label>
                         <div className="relative">
-                          <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
-                            id="vin"
+                            id="vin-mobile"
                             value={vin}
                             onChange={(e) => setVin(e.target.value)}
                             placeholder="For better accuracy"
-                            className="h-10 pl-10"
+                            className="h-11 pl-10"
                           />
+                        </div>
+                      </div>
+
+                      <div className="mt-4">
+                        <div className="flex items-start space-x-3">
+                          <Checkbox
+                            id="gdprConsent-mobile"
+                            checked={gdprConsent}
+                            onCheckedChange={(checked: boolean) => setGdprConsent(checked)}
+                            className="mt-0.5 data-[state=checked]:bg-primary"
+                          />
+                          <div>
+                            <label
+                              htmlFor="gdprConsent-mobile"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              I agree to the <Link href="/terms" className="text-primary hover:underline">Terms & Conditions</Link> and <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -584,24 +539,42 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                           </div>
                         </div>
                       </div>
+
+                      <div className="mt-4">
+                        <div className="flex items-start space-x-3">
+                          <Checkbox
+                            id="gdprConsent-desktop"
+                            checked={gdprConsent}
+                            onCheckedChange={(checked: boolean) => setGdprConsent(checked)}
+                            className="mt-0.5 data-[state=checked]:bg-primary"
+                          />
+                          <div>
+                            <label
+                              htmlFor="gdprConsent-desktop"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              I agree to the <Link href="/terms" className="text-primary hover:underline">Terms & Conditions</Link> and <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
                     </>
                   )}
                   
-                  
                   {errors.gdpr && <p className="text-xs text-destructive mt-1">{errors.gdpr}</p>}
 
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <div className="flex flex-col sm:flex-row gap-3 pt-3">
                     <Button 
                       type="button"
                       variant="outline"
                       onClick={() => setActiveStep(1)}
-                      className="w-full sm:w-1/3"
+                      className="w-full sm:w-1/3 h-11 text-base"
                     >
                       Back
                     </Button>
                     <Button 
                       type="submit"
-                      className="w-full sm:w-2/3"
+                      className="w-full sm:w-2/3 h-11 text-base"
                       disabled={isLoading}
                     >
                       {isLoading ? (
