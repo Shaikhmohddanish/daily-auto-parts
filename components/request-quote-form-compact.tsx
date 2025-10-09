@@ -10,6 +10,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { brandModels } from "@/lib/brand-models"
 import { parts } from "@/lib/parts"
 import { Car, Mail, Phone, MapPin, FileText, ShieldCheck } from "lucide-react"
@@ -20,6 +21,7 @@ interface RequestQuoteFormCompactProps {
 
 export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompactProps) {
   const { toast } = useToast()
+  const isMobile = useIsMobile()
   const [brand, setBrand] = useState("")
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
@@ -293,7 +295,7 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                     {errors.fullName && <p className="text-xs text-destructive mt-1">{errors.fullName}</p>}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-sm">Email <span className="text-destructive">*</span></Label>
                       <div className="relative">
@@ -327,7 +329,7 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="zip" className="text-sm">ZIP Code <span className="text-destructive">*</span></Label>
                       <div className="relative">
@@ -363,14 +365,15 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                       id="gdpr"
                       checked={gdprConsent}
                       onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-                      className={`mt-1 ${errors.gdpr ? "border-destructive" : ""}`}
+                      className={`${isMobile ? 'h-4 w-4 mt-0.5' : 'mt-1'} ${errors.gdpr ? "border-destructive" : ""}`}
                     />
-                    <Label htmlFor="gdpr" className="text-sm leading-relaxed cursor-pointer">
+                    <Label htmlFor="gdpr" className={`text-sm ${isMobile ? 'leading-tight' : 'leading-relaxed'} cursor-pointer`}>
                       I agree to the{" "}
                       <Link href="/privacy" className="text-primary hover:underline font-medium">
                         Privacy Policy
                       </Link>
-                      <span className="text-destructive"> *</span>
+                      {isMobile ? <span className="text-destructive"> *</span> : 
+                       <span className="text-destructive"> *</span>}
                     </Label>
                   </div>
                   {errors.gdpr && <p className="text-xs text-destructive mt-1">{errors.gdpr}</p>}

@@ -8,9 +8,11 @@ import { Label } from "@/components/ui/label"
 import { brandModels } from "@/lib/brand-models"
 import { parts } from "@/lib/parts"
 import { Search } from "lucide-react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export function QuickSearchForm() {
   const router = useRouter()
+  const isMobile = useIsMobile()
   const [brand, setBrand] = useState("")
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
@@ -37,70 +39,147 @@ export function QuickSearchForm() {
 
   return (
     <div className="rounded-lg border bg-card p-6 shadow-sm">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="space-y-2">
-          <Label htmlFor="quick-brand">Brand</Label>
-          <Select value={brand} onValueChange={setBrand}>
-            <SelectTrigger id="quick-brand">
-              <SelectValue placeholder="Select brand" />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.keys(brandModels).map((b) => (
-                <SelectItem key={b} value={b}>
-                  {b}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      <div className={isMobile ? "grid grid-cols-2 gap-4" : "grid gap-4 sm:grid-cols-2 lg:grid-cols-4"}>
+        {isMobile ? (
+          <>
+            {/* Left column for mobile */}
+            <div className="flex flex-col space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="quick-brand">Brand</Label>
+                <Select value={brand} onValueChange={setBrand}>
+                  <SelectTrigger id="quick-brand">
+                    <SelectValue placeholder="Select brand" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.keys(brandModels).map((b) => (
+                      <SelectItem key={b} value={b}>
+                        {b}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="quick-model">Model</Label>
-          <Select value={model} onValueChange={setModel} disabled={!brand}>
-            <SelectTrigger id="quick-model">
-              <SelectValue placeholder="Select model" />
-            </SelectTrigger>
-            <SelectContent>
-              {availableModels.map((m) => (
-                <SelectItem key={m} value={m}>
-                  {m}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+              <div className="space-y-2">
+                <Label htmlFor="quick-model">Model</Label>
+                <Select value={model} onValueChange={setModel} disabled={!brand}>
+                  <SelectTrigger id="quick-model">
+                    <SelectValue placeholder="Select model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableModels.map((m) => (
+                      <SelectItem key={m} value={m}>
+                        {m}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="quick-year">Year</Label>
-          <Select value={year} onValueChange={setYear}>
-            <SelectTrigger id="quick-year">
-              <SelectValue placeholder="Select year" />
-            </SelectTrigger>
-            <SelectContent>
-              {years.map((y) => (
-                <SelectItem key={y} value={y}>
-                  {y}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+            {/* Right column for mobile */}
+            <div className="flex flex-col space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="quick-year">Year</Label>
+                <Select value={year} onValueChange={setYear}>
+                  <SelectTrigger id="quick-year">
+                    <SelectValue placeholder="Select year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map((y) => (
+                      <SelectItem key={y} value={y}>
+                        {y}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="quick-part">Part</Label>
-          <Select value={part} onValueChange={setPart}>
-            <SelectTrigger id="quick-part">
-              <SelectValue placeholder="Select part" />
-            </SelectTrigger>
-            <SelectContent>
-              {parts.slice(0, 20).map((p) => (
-                <SelectItem key={p} value={p}>
-                  {p}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+              <div className="space-y-2">
+                <Label htmlFor="quick-part">Part</Label>
+                <Select value={part} onValueChange={setPart}>
+                  <SelectTrigger id="quick-part">
+                    <SelectValue placeholder="Select part" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {parts.slice(0, 20).map((p) => (
+                      <SelectItem key={p} value={p}>
+                        {p}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Desktop layout */}
+            <div className="space-y-2">
+              <Label htmlFor="quick-brand">Brand</Label>
+              <Select value={brand} onValueChange={setBrand}>
+                <SelectTrigger id="quick-brand">
+                  <SelectValue placeholder="Select brand" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.keys(brandModels).map((b) => (
+                    <SelectItem key={b} value={b}>
+                      {b}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="quick-model">Model</Label>
+              <Select value={model} onValueChange={setModel} disabled={!brand}>
+                <SelectTrigger id="quick-model">
+                  <SelectValue placeholder="Select model" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableModels.map((m) => (
+                    <SelectItem key={m} value={m}>
+                      {m}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="quick-year">Year</Label>
+              <Select value={year} onValueChange={setYear}>
+                <SelectTrigger id="quick-year">
+                  <SelectValue placeholder="Select year" />
+                </SelectTrigger>
+                <SelectContent>
+                  {years.map((y) => (
+                    <SelectItem key={y} value={y}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="quick-part">Part</Label>
+              <Select value={part} onValueChange={setPart}>
+                <SelectTrigger id="quick-part">
+                  <SelectValue placeholder="Select part" />
+                </SelectTrigger>
+                <SelectContent>
+                  {parts.slice(0, 20).map((p) => (
+                    <SelectItem key={p} value={p}>
+                      {p}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </>
+        )}
       </div>
 
       <Button onClick={handleSearch} size="lg" className="mt-6 w-full" disabled={!brand && !model && !year && !part}>

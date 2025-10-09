@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { brandModels } from "@/lib/brand-models"
 import { parts } from "@/lib/parts"
 
@@ -19,6 +20,7 @@ interface RequestQuoteFormProps {
 
 export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
   const { toast } = useToast()
+  const isMobile = useIsMobile()
   const [brand, setBrand] = useState("")
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
@@ -127,93 +129,194 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
       <div className="space-y-4">
         <h3 className="font-semibold text-lg">Vehicle Information</h3>
         
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label htmlFor="brand">Vehicle Brand *</Label>
-            <Select value={brand} onValueChange={setBrand}>
-              <SelectTrigger id="brand" className={errors.brand ? "border-destructive" : ""}>
-                <SelectValue placeholder="Select brand" />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.keys(brandModels).map((b) => (
-                  <SelectItem key={b} value={b}>{b}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {errors.brand && <p className="text-sm text-destructive">{errors.brand}</p>}
-          </div>
+        {isMobile ? (
+          <>
+            {/* Mobile Layout */}
+            {/* Row 1: Vehicle Brand and Vehicle Model */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="brand">Vehicle Brand *</Label>
+                <Select value={brand} onValueChange={setBrand}>
+                  <SelectTrigger id="brand" className={errors.brand ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select brand" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.keys(brandModels).map((b) => (
+                      <SelectItem key={b} value={b}>{b}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.brand && <p className="text-sm text-destructive">{errors.brand}</p>}
+              </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="model">Vehicle Model *</Label>
-            <Select value={model} onValueChange={setModel} disabled={!brand}>
-              <SelectTrigger id="model" className={errors.model ? "border-destructive" : ""}>
-                <SelectValue placeholder="Select model" />
-              </SelectTrigger>
-              <SelectContent>
-                {availableModels.map((m) => (
-                  <SelectItem key={m} value={m}>{m}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {errors.model && <p className="text-sm text-destructive">{errors.model}</p>}
-          </div>
-        </div>
+              <div className="space-y-2">
+                <Label htmlFor="model">Vehicle Model *</Label>
+                <Select value={model} onValueChange={setModel} disabled={!brand}>
+                  <SelectTrigger id="model" className={errors.model ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableModels.map((m) => (
+                      <SelectItem key={m} value={m}>{m}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.model && <p className="text-sm text-destructive">{errors.model}</p>}
+              </div>
+            </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label htmlFor="year">Year *</Label>
-            <Select value={year} onValueChange={setYear}>
-              <SelectTrigger id="year" className={errors.year ? "border-destructive" : ""}>
-                <SelectValue placeholder="Select year" />
-              </SelectTrigger>
-              <SelectContent>
-                {years.map((y) => (
-                  <SelectItem key={y} value={y}>{y}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {errors.year && <p className="text-sm text-destructive">{errors.year}</p>}
-          </div>
+            {/* Row 2: Year and Quantity */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="year">Year *</Label>
+                <Select value={year} onValueChange={setYear}>
+                  <SelectTrigger id="year" className={errors.year ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map((y) => (
+                      <SelectItem key={y} value={y}>{y}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.year && <p className="text-sm text-destructive">{errors.year}</p>}
+              </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="quantity">Quantity</Label>
-            <Input
-              id="quantity"
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className={errors.quantity ? "border-destructive" : ""}
-            />
-            {errors.quantity && <p className="text-sm text-destructive">{errors.quantity}</p>}
-          </div>
-        </div>
+              <div className="space-y-2">
+                <Label htmlFor="quantity">Quantity</Label>
+                <Input
+                  id="quantity"
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  className={errors.quantity ? "border-destructive" : ""}
+                />
+                {errors.quantity && <p className="text-sm text-destructive">{errors.quantity}</p>}
+              </div>
+            </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="part">Part Needed *</Label>
-          <Select value={part} onValueChange={setPart}>
-            <SelectTrigger id="part" className={errors.part ? "border-destructive" : ""}>
-              <SelectValue placeholder="Select part" />
-            </SelectTrigger>
-            <SelectContent>
-              {parts.map((p) => (
-                <SelectItem key={p} value={p}>{p}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.part && <p className="text-sm text-destructive">{errors.part}</p>}
-        </div>
+            {/* Row 3: Part Needed and VIN Number */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="part">Part Needed *</Label>
+                <Select value={part} onValueChange={setPart}>
+                  <SelectTrigger id="part" className={errors.part ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select part" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {parts.map((p) => (
+                      <SelectItem key={p} value={p}>{p}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.part && <p className="text-sm text-destructive">{errors.part}</p>}
+              </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="vin">VIN Number (Optional)</Label>
-          <Input
-            id="vin"
-            value={vin}
-            onChange={(e) => setVin(e.target.value)}
-            placeholder="Enter VIN for better part matching"
-            maxLength={17}
-          />
-        </div>
+              <div className="space-y-2">
+                <Label htmlFor="vin">VIN Number (Optional)</Label>
+                <Input
+                  id="vin"
+                  value={vin}
+                  onChange={(e) => setVin(e.target.value)}
+                  placeholder="Enter VIN for better part matching"
+                  maxLength={17}
+                />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Desktop Layout - Original layout */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="brand">Vehicle Brand *</Label>
+                <Select value={brand} onValueChange={setBrand}>
+                  <SelectTrigger id="brand" className={errors.brand ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select brand" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.keys(brandModels).map((b) => (
+                      <SelectItem key={b} value={b}>{b}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.brand && <p className="text-sm text-destructive">{errors.brand}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="model">Vehicle Model *</Label>
+                <Select value={model} onValueChange={setModel} disabled={!brand}>
+                  <SelectTrigger id="model" className={errors.model ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableModels.map((m) => (
+                      <SelectItem key={m} value={m}>{m}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.model && <p className="text-sm text-destructive">{errors.model}</p>}
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="year">Year *</Label>
+                <Select value={year} onValueChange={setYear}>
+                  <SelectTrigger id="year" className={errors.year ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map((y) => (
+                      <SelectItem key={y} value={y}>{y}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.year && <p className="text-sm text-destructive">{errors.year}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="quantity">Quantity</Label>
+                <Input
+                  id="quantity"
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  className={errors.quantity ? "border-destructive" : ""}
+                />
+                {errors.quantity && <p className="text-sm text-destructive">{errors.quantity}</p>}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="part">Part Needed *</Label>
+              <Select value={part} onValueChange={setPart}>
+                <SelectTrigger id="part" className={errors.part ? "border-destructive" : ""}>
+                  <SelectValue placeholder="Select part" />
+                </SelectTrigger>
+                <SelectContent>
+                  {parts.map((p) => (
+                    <SelectItem key={p} value={p}>{p}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.part && <p className="text-sm text-destructive">{errors.part}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="vin">VIN Number (Optional)</Label>
+              <Input
+                id="vin"
+                value={vin}
+                onChange={(e) => setVin(e.target.value)}
+                placeholder="Enter VIN for better part matching"
+                maxLength={17}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="space-y-4">
@@ -286,19 +389,39 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
       </div>
 
       <div className="flex items-start gap-3">
-        <Checkbox
-          id="gdpr"
-          checked={gdprConsent}
-          onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
-          className={`mt-0.5 ${errors.gdpr ? "border-destructive" : ""}`}
-        />
-        <Label htmlFor="gdpr" className="text-sm leading-relaxed cursor-pointer">
-          I agree to the{" "}
-          <Link href="/privacy" className="text-primary hover:underline">
-            Privacy Policy
-          </Link>{" "}
-          and consent to the collection and processing of my personal data for quote purposes. *
-        </Label>
+        {isMobile ? (
+          <>
+            <Checkbox
+              id="gdpr"
+              checked={gdprConsent}
+              onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
+              className={`h-4 w-4 mt-1 ${errors.gdpr ? "border-destructive" : ""}`}
+            />
+            <Label htmlFor="gdpr" className="text-sm leading-tight cursor-pointer">
+              I agree to the{" "}
+              <Link href="/privacy" className="text-primary hover:underline">
+                Privacy Policy
+              </Link>{" "}
+              and consent to data processing for quote purposes. *
+            </Label>
+          </>
+        ) : (
+          <>
+            <Checkbox
+              id="gdpr"
+              checked={gdprConsent}
+              onCheckedChange={(checked) => setGdprConsent(checked as boolean)}
+              className={`mt-0.5 ${errors.gdpr ? "border-destructive" : ""}`}
+            />
+            <Label htmlFor="gdpr" className="text-sm leading-relaxed cursor-pointer">
+              I agree to the{" "}
+              <Link href="/privacy" className="text-primary hover:underline">
+                Privacy Policy
+              </Link>{" "}
+              and consent to the collection and processing of my personal data for quote purposes. *
+            </Label>
+          </>
+        )}
       </div>
       {errors.gdpr && <p className="text-sm text-destructive">{errors.gdpr}</p>}
 

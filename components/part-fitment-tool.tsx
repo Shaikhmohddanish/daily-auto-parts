@@ -6,9 +6,11 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { brandModels } from "@/lib/brand-models"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { CheckCircle, Search, Shield, DollarSign, Car } from "lucide-react"
 
 export function PartFitmentTool() {
+  const isMobile = useIsMobile()
   const [brand, setBrand] = useState("")
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
@@ -53,73 +55,149 @@ export function PartFitmentTool() {
             Verify part fitment for your vehicle to ensure perfect compatibility
           </p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="fitment-brand" className="text-sm font-medium">
-                Brand
-              </Label>
-              <Select value={brand} onValueChange={setBrand}>
-                <SelectTrigger id="fitment-brand" className="h-10">
-                  <SelectValue placeholder="Select brand" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(brandModels).map((b) => (
-                    <SelectItem key={b} value={b}>
-                      {b}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+          {isMobile ? (
+            <div className="grid gap-4">
+              {/* Mobile Layout - 2 rows with 2 items per row */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="fitment-brand" className="text-sm font-medium">
+                    Brand
+                  </Label>
+                  <Select value={brand} onValueChange={setBrand}>
+                    <SelectTrigger id="fitment-brand" className="h-10">
+                      <SelectValue placeholder="Select brand" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(brandModels).map((b) => (
+                        <SelectItem key={b} value={b}>
+                          {b}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="fitment-model" className="text-sm font-medium">
-                Model
-              </Label>
-              <Select value={model} onValueChange={setModel} disabled={!brand}>
-                <SelectTrigger id="fitment-model" className="h-10">
-                  <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableModels.map((m) => (
-                    <SelectItem key={m} value={m}>
-                      {m}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="fitment-model" className="text-sm font-medium">
+                    Model
+                  </Label>
+                  <Select value={model} onValueChange={setModel} disabled={!brand}>
+                    <SelectTrigger id="fitment-model" className="h-10">
+                      <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableModels.map((m) => (
+                        <SelectItem key={m} value={m}>
+                          {m}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="fitment-year" className="text-sm font-medium">
-                Year
-              </Label>
-              <Select value={year} onValueChange={setYear}>
-                <SelectTrigger id="fitment-year" className="h-10">
-                  <SelectValue placeholder="Select year" />
-                </SelectTrigger>
-                <SelectContent>
-                  {years.map((y) => (
-                    <SelectItem key={y} value={y}>
-                      {y}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="fitment-year" className="text-sm font-medium">
+                    Year
+                  </Label>
+                  <Select value={year} onValueChange={setYear}>
+                    <SelectTrigger id="fitment-year" className="h-10">
+                      <SelectValue placeholder="Select year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {years.map((y) => (
+                        <SelectItem key={y} value={y}>
+                          {y}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="self-end">
+                  <Button 
+                    onClick={handleCheck} 
+                    disabled={!isComplete}
+                    className="w-full h-10"
+                    size="sm"
+                  >
+                    <Search className="h-4 w-4 mr-1" />
+                    Check Fit
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="fitment-brand" className="text-sm font-medium">
+                  Brand
+                </Label>
+                <Select value={brand} onValueChange={setBrand}>
+                  <SelectTrigger id="fitment-brand" className="h-10">
+                    <SelectValue placeholder="Select brand" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.keys(brandModels).map((b) => (
+                      <SelectItem key={b} value={b}>
+                        {b}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-          <div className="flex justify-end">
-            <Button 
-              onClick={handleCheck} 
-              disabled={!isComplete}
-              className="mt-2"
-              size="sm"
-            >
-              <Search className="h-4 w-4 mr-1" />
-              Check Compatibility
-            </Button>
-          </div>
+              <div className="space-y-2">
+                <Label htmlFor="fitment-model" className="text-sm font-medium">
+                  Model
+                </Label>
+                <Select value={model} onValueChange={setModel} disabled={!brand}>
+                  <SelectTrigger id="fitment-model" className="h-10">
+                    <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableModels.map((m) => (
+                      <SelectItem key={m} value={m}>
+                        {m}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="fitment-year" className="text-sm font-medium">
+                  Year
+                </Label>
+                <Select value={year} onValueChange={setYear}>
+                  <SelectTrigger id="fitment-year" className="h-10">
+                    <SelectValue placeholder="Select year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map((y) => (
+                      <SelectItem key={y} value={y}>
+                        {y}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
+
+          {!isMobile && (
+            <div className="flex justify-end">
+              <Button 
+                onClick={handleCheck} 
+                disabled={!isComplete}
+                className="mt-2"
+                size="sm"
+              >
+                <Search className="h-4 w-4 mr-1" />
+                Check Compatibility
+              </Button>
+            </div>
+          )}
 
           {isSubmitted && isComplete && (
             <div className="mt-4 p-3 rounded-lg bg-green-50 border border-green-200 text-green-800 flex items-start gap-3">
