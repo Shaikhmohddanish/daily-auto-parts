@@ -69,7 +69,7 @@ export default function ShippingPage() {
               Shipping & Tracking
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100 leading-relaxed">
-              Call +1(888) 888-8888 (Toll-Free) To Talk With Our Mechanic
+              Call +1(888) 815-8187 (Toll-Free) To Talk With Our Mechanic
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <div className="flex items-center gap-2 text-lg">
@@ -313,7 +313,7 @@ export default function ShippingPage() {
                 <CardContent className="text-center space-y-4">
                   <div className="space-y-2">
                     <p className="font-semibold text-gray-900">Call</p>
-                    <p className="text-2xl font-bold text-blue-600">+1(888) 888-8888</p>
+                    <p className="text-2xl font-bold text-blue-600">+1(888) 815-8187</p>
                   </div>
                   <div className="space-y-2">
                     <p className="font-semibold text-gray-900">Email Support</p>

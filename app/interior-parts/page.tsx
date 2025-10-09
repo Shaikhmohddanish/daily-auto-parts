@@ -109,7 +109,7 @@ export default function InteriorPartsPage() {
               Used Interior Parts
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100 leading-relaxed">
-              Call +1(888) 888-8888 (Toll-Free) To Talk With Our Mechanic
+              Call +1(888) 815-8187 (Toll-Free) To Talk With Our Mechanic
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <div className="flex items-center gap-2 text-lg">

@@ -53,7 +53,7 @@ export default function ExteriorPartsPage() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">Used Exterior Parts</h1>
             <div className="flex items-center justify-center gap-4 text-lg mb-12">
               <Phone className="h-5 w-5 text-primary" />
-              <span className="font-semibold">Call (888) 888-8888 (Toll-Free)</span>
+              <span className="font-semibold">Call (888) 815-8187 (Toll-Free)</span>
               <span className="text-muted-foreground">To Talk With Our Mechanic</span>
             </div>
           </div>
@@ -302,7 +302,7 @@ export default function ExteriorPartsPage() {
             <Button asChild size="lg" variant="secondary">
               <a href="tel:+18888158187">
                 <Phone className="mr-2 h-4 w-4" />
-                Call (888) 888-8888
+                Call (888) 815-8187
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">

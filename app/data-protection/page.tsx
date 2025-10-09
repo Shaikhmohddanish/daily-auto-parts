@@ -25,7 +25,7 @@ export default function DataProtectionPage() {
         </p>
         <div className="flex items-center justify-center gap-4 text-lg">
           <Phone className="h-5 w-5 text-primary" />
-          <span className="font-semibold">Call (888) 888-8888 (Toll-Free)</span>
+          <span className="font-semibold">Call (888) 815-8187 (Toll-Free)</span>
           <span className="text-muted-foreground">To Talk With Our Mechanic</span>
         </div>
       </div>
@@ -256,7 +256,7 @@ export default function DataProtectionPage() {
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-primary" />
                   <span className="font-semibold">Phone:</span>
-                  <a href="tel:+18888158187" className="text-primary hover:underline">(888) 888-8888</a>
+                  <a href="tel:+18888158187" className="text-primary hover:underline">(888) 815-8187</a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-primary" />
@@ -281,7 +281,7 @@ export default function DataProtectionPage() {
           <Button asChild size="lg">
             <a href="tel:+18888158187">
               <Phone className="mr-2 h-4 w-4" />
-              Call (888) 888-8888
+              Call (888) 815-8187
             </a>
           </Button>
           <Button asChild variant="outline" size="lg">
