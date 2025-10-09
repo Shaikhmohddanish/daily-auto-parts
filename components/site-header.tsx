@@ -41,9 +41,9 @@ export function SiteHeader() {
               {item.name}
             </Link>
           ))}
-          <a href="tel:8888888888" className="flex items-center gap-2 text-sm font-medium text-primary">
+          <a href="tel:8888158187" className="flex items-center gap-2 text-sm font-medium text-primary">
             <Phone className="h-4 w-4" />
-            888-888-8888
+            888-815-8187
           </a>
         </div>
 
@@ -73,11 +73,11 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href="tel:8888888888"
+              href="tel:8888158187"
               className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-primary hover:bg-muted"
             >
               <Phone className="h-4 w-4" />
-              888-888-8888
+              888-815-8187
             </a>
           </div>
         </div>

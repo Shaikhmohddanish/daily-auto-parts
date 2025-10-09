@@ -29,9 +29,9 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-4 text-lg font-bold">Daily Auto Parts</h3>
             <div className="space-y-3 text-sm text-muted-foreground">
-              <a href="tel:8888888888" className="flex items-center gap-2 hover:text-primary">
+              <a href="tel:8888158187" className="flex items-center gap-2 hover:text-primary">
                 <Phone className="h-4 w-4" />
-                888-888-8888
+                888-815-8187
               </a>
               <a
                 href="https://maps.google.com/?q=4300+W+State+St,+Boise,+ID+83703"

@@ -256,7 +256,7 @@ export default function DataProtectionPage() {
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-primary" />
                   <span className="font-semibold">Phone:</span>
-                  <a href="tel:+18888888888" className="text-primary hover:underline">(888) 888-8888</a>
+                  <a href="tel:+18888158187" className="text-primary hover:underline">(888) 888-8888</a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-primary" />
@@ -279,7 +279,7 @@ export default function DataProtectionPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg">
-            <a href="tel:+18888888888">
+            <a href="tel:+18888158187">
               <Phone className="mr-2 h-4 w-4" />
               Call (888) 888-8888
             </a>

@@ -110,8 +110,8 @@ export default function AdvertisingPage() {
                 Boise, ID 83703
                 <br />
                 Phone:{" "}
-                <a href="tel:8888888888" className="text-primary">
-                  888-888-8888
+                <a href="tel:8888158187" className="text-primary">
+                  888-815-8187
                 </a>
               </p>
             </div>

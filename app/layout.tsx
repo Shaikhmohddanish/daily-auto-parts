@@ -132,7 +132,7 @@ export default function RootLayout({
               name: "Daily Auto Parts",
               description: "Quality OEM and used auto parts with fast quotes and reliable service",
               url: "https://dailyautoparts.com",
-              telephone: "+18888888888",
+              telephone: "+18888158187",
               email: "info@dailyautoparts.com",
               foundingDate: "2020",
               currenciesAccepted: "USD",

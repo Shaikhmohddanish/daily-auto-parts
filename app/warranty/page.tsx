@@ -158,8 +158,8 @@ export default function WarrantyPage() {
                     <h3 className="mb-1 font-semibold">Contact Us Immediately</h3>
                     <p className="text-sm text-muted-foreground">
                       Call us at{" "}
-                      <a href="tel:8888888888" className="text-primary">
-                        888-888-8888
+                      <a href="tel:8888158187" className="text-primary">
+                        888-815-8187
                       </a>{" "}
                       within the warranty period. Do not return parts without authorization.
                     </p>
@@ -310,8 +310,8 @@ export default function WarrantyPage() {
                   <h3 className="mb-2 font-semibold">How to Start a Return</h3>
                   <p className="text-sm text-muted-foreground">
                     Contact us at{" "}
-                    <a href="tel:8888888888" className="text-primary">
-                      888-888-8888
+                    <a href="tel:8888158187" className="text-primary">
+                      888-815-8187
                     </a>{" "}
                     to request a return authorization. Do not ship parts back without an RMA number, as they may not be
                     accepted.
@@ -340,7 +340,7 @@ export default function WarrantyPage() {
             <p className="mb-4 text-muted-foreground">Our team is here to help explain coverage and answer questions</p>
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
               <Button asChild size="lg">
-                <a href="tel:8888888888">Call 888-888-8888</a>
+                <a href="tel:8888158187">Call 888-815-8187</a>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <Link href="/contact">Contact Us</Link>

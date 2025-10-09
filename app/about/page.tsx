@@ -99,8 +99,8 @@ export default function AboutPage() {
                 <p className="mb-2 font-semibold text-foreground">Contact Information</p>
                 <p>
                   <strong>Phone:</strong>{" "}
-                  <a href="tel:8888888888" className="text-primary">
-                    888-888-8888
+                  <a href="tel:8888158187" className="text-primary">
+                    888-815-8187
                   </a>
                 </p>
                 <p>
@@ -187,7 +187,7 @@ export default function AboutPage() {
           <p className="mb-6 text-muted-foreground">Request a quote and experience the Daily Auto Parts difference</p>
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Button asChild size="lg">
-              <a href="tel:8888888888">Call 888-888-8888</a>
+              <a href="tel:8888158187">Call 888-815-8187</a>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="/parts">Browse Parts</Link>

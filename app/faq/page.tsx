@@ -51,7 +51,7 @@ export default function FAQPage() {
     {
       question: "Do you offer wholesale pricing?",
       answer:
-        "Yes, we work with mechanics, repair shops, and dealerships. Contact us at 888-888-8888 to discuss wholesale pricing and volume discounts. We can set up a business account for easier ordering and invoicing. Wholesale customers may have access to extended payment terms and priority sourcing for hard-to-find parts.",
+        "Yes, we work with mechanics, repair shops, and dealerships. Contact us at 888-815-8187 to discuss wholesale pricing and volume discounts. We can set up a business account for easier ordering and invoicing. Wholesale customers may have access to extended payment terms and priority sourcing for hard-to-find parts.",
     },
     {
       question: "Can I pick up parts locally?",

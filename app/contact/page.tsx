@@ -10,7 +10,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Contact Us | Daily Auto Parts",
   description:
-    "Get in touch with Daily Auto Parts for quotes, fitment help, and customer support. Call 888-888-8888 or fill out our contact form.",
+    "Get in touch with Daily Auto Parts for quotes, fitment help, and customer support. Call 888-815-8187 or fill out our contact form.",
 }
 
 export default function ContactPage() {
@@ -37,8 +37,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="mb-1 font-semibold">Phone</h3>
-                      <a href="tel:8888888888" className="text-lg text-primary hover:underline">
-                        888-888-8888
+                      <a href="tel:8888158187" className="text-lg text-primary hover:underline">
+                        888-815-8187
                       </a>
                       <p className="text-sm text-muted-foreground">Call us for immediate assistance</p>
                     </div>

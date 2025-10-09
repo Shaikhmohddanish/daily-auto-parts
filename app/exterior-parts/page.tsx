@@ -300,7 +300,7 @@ export default function ExteriorPartsPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary">
-              <a href="tel:+18888888888">
+              <a href="tel:+18888158187">
                 <Phone className="mr-2 h-4 w-4" />
                 Call (888) 888-8888
               </a>
