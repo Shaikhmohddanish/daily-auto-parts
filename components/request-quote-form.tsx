@@ -422,6 +422,22 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
         />
       </div>
 
+      <div className="flex items-start space-x-2 mt-4">
+        <Checkbox 
+          id="gdpr" 
+          checked={gdprConsent} 
+          onCheckedChange={(checked) => setGdprConsent(checked === true)}
+          className="mt-0.5"
+        />
+        <div className="space-y-1">
+          <label
+            htmlFor="gdpr"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            I agree to the <Link href="/terms" className="text-primary hover:underline">Terms & Conditions</Link> and <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
+          </label>
+        </div>
+      </div>
       
       {errors.gdpr && <p className="text-sm text-destructive">{errors.gdpr}</p>}
 
