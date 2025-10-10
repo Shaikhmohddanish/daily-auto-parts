@@ -118,7 +118,7 @@ export function QuickSearchForm() {
                   <SelectTrigger id="quick-year">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="max-h-[200px] overflow-y-auto">
                     {years.map((y) => (
                       <SelectItem key={y} value={y}>
                         {y}
@@ -134,7 +134,7 @@ export function QuickSearchForm() {
                   <SelectTrigger id="quick-part">
                     <SelectValue placeholder="Select part" />
                   </SelectTrigger>
-                  <SelectContent className="max-h-[200px]">
+                  <SelectContent className="max-h-[200px] overflow-y-auto">
                     {parts.map((p) => (
                       <SelectItem key={p} value={p}>
                         {p}
@@ -186,7 +186,7 @@ export function QuickSearchForm() {
                 <SelectTrigger id="quick-year">
                   <SelectValue placeholder="Select year" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="max-h-[200px] overflow-y-auto">
                   {years.map((y) => (
                     <SelectItem key={y} value={y}>
                       {y}
@@ -202,7 +202,7 @@ export function QuickSearchForm() {
                 <SelectTrigger id="quick-part">
                   <SelectValue placeholder="Select part" />
                 </SelectTrigger>
-                <SelectContent className="max-h-[200px]">
+                <SelectContent className="max-h-[200px] overflow-y-auto">
                   {parts.map((p) => (
                     <SelectItem key={p} value={p}>
                       {p}
