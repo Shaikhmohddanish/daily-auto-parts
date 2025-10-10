@@ -1,4 +1,4 @@
-export const brandModels: Record<string, string[]> = {
+export const brandModels = {
   Acura: [
     "CL",
     "CSX",

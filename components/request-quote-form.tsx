@@ -37,7 +37,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const years = Array.from({ length: 2026 - 1985 + 1 }, (_, i) => (2026 - i).toString())
-  const availableModels = brand ? brandModels[brand] || [] : []
+  const availableModels: string[] = brand ? brandModels[brand] || [] : []
 
   useEffect(() => {
     if (brand) {

@@ -117,21 +117,48 @@
     @apply bg-background text-foreground;
   }
   
-  /* Ensure scrollbars are visible in dropdowns */
-  .overflow-y-auto::-webkit-scrollbar {
+  /* Ensure scrollbars are always visible in dropdowns */
+  .select-dropdown-with-scrollbar::-webkit-scrollbar {
     width: 8px;
+    display: block !important;
   }
   
-  .overflow-y-auto::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .overflow-y-auto::-webkit-scrollbar-thumb {
-    background-color: rgba(156, 163, 175, 0.5);
+  .select-dropdown-with-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
     border-radius: 4px;
   }
   
-  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  .select-dropdown-with-scrollbar::-webkit-scrollbar-thumb {
     background-color: rgba(107, 114, 128, 0.7);
+    border-radius: 4px;
+    border: 2px solid #f1f1f1;
+  }
+  
+  .select-dropdown-with-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(75, 85, 99, 0.9);
+  }
+  
+  /* Force scrollbar to be visible on all Radix UI select contents */
+  [data-radix-select-viewport] {
+    overflow-y: scroll !important;
+    scrollbar-width: thin !important;
+    max-height: 250px !important;
+  }
+  
+  /* Alternative scrollbar styles for browsers */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(107, 114, 128, 0.7) #f1f1f1;
+  }
+  
+  /* Override scrollbar styles for mobile to ensure they're visible */
+  @media (max-width: 768px) {
+    .select-dropdown-with-scrollbar {
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .select-dropdown-with-scrollbar > div {
+      overflow-y: scroll !important;
+    }
   }
 }

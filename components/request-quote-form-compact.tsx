@@ -38,7 +38,7 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
   const [activeStep, setActiveStep] = useState(1)
 
   const years = Array.from({ length: 2026 - 1985 + 1 }, (_, i) => (2026 - i).toString())
-  const availableModels = brand ? brandModels[brand] || [] : []
+  const availableModels: string[] = brand ? brandModels[brand] || [] : []
 
   useEffect(() => {
     if (brand) {
@@ -224,7 +224,7 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                           <SelectValue placeholder="Select brand" />
                         </SelectTrigger>
                         <SelectContent>
-                          {Object.keys(brandModels).map((b) => (
+                          {Object.keys(brandModels).map((b: string) => (
                             <SelectItem key={b} value={b}>
                               {b}
                             </SelectItem>
@@ -243,7 +243,7 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                           <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
                         </SelectTrigger>
                         <SelectContent>
-                          {availableModels.map((m) => (
+                          {availableModels.map((m: string) => (
                             <SelectItem key={m} value={m}>
                               {m}
                             </SelectItem>
@@ -262,7 +262,7 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                           <SelectValue placeholder="Select year" />
                         </SelectTrigger>
                         <SelectContent>
-                          {years.map((y) => (
+                          {years.map((y: string) => (
                             <SelectItem key={y} value={y}>
                               {y}
                             </SelectItem>
@@ -281,7 +281,7 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                           <SelectValue placeholder="Select part" />
                         </SelectTrigger>
                         <SelectContent>
-                          {parts.map((p) => (
+                          {parts.map((p: string) => (
                             <SelectItem key={p} value={p}>
                               {p}
                             </SelectItem>

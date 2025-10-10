@@ -10,6 +10,7 @@ import { brandModels } from "@/lib/brand-models"
 import { parts } from "@/lib/parts"
 import { Search } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { useScrollbarFix } from "@/hooks/use-scrollbar-fix"
 import Link from "next/link"
 
 export function QuickSearchForm() {
@@ -21,9 +22,12 @@ export function QuickSearchForm() {
   const [part, setPart] = useState("")
   const [termsAgreed, setTermsAgreed] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  
+  // Apply scrollbar fix
+  useScrollbarFix()
 
   const years = Array.from({ length: 2026 - 1985 + 1 }, (_, i) => (2026 - i).toString())
-  const availableModels = brand ? brandModels[brand] || [] : []
+  const availableModels: string[] = brand ? brandModels[brand] || [] : []
 
   useEffect(() => {
     if (brand) {
@@ -84,7 +88,7 @@ export function QuickSearchForm() {
                     <SelectValue placeholder="Select brand" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.keys(brandModels).map((b) => (
+                    {Object.keys(brandModels).map((b: string) => (
                       <SelectItem key={b} value={b}>
                         {b}
                       </SelectItem>
@@ -100,7 +104,7 @@ export function QuickSearchForm() {
                     <SelectValue placeholder="Select model" />
                   </SelectTrigger>
                   <SelectContent>
-                    {availableModels.map((m) => (
+                    {availableModels.map((m: string) => (
                       <SelectItem key={m} value={m}>
                         {m}
                       </SelectItem>
@@ -118,12 +122,14 @@ export function QuickSearchForm() {
                   <SelectTrigger id="quick-year">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
-                  <SelectContent className="max-h-[200px] overflow-y-auto">
-                    {years.map((y) => (
-                      <SelectItem key={y} value={y}>
-                        {y}
-                      </SelectItem>
-                    ))}
+                  <SelectContent style={{ maxHeight: '250px', overflowY: 'scroll' }} className="select-dropdown-with-scrollbar">
+                    <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
+                      {years.map((y: string) => (
+                        <SelectItem key={y} value={y}>
+                          {y}
+                        </SelectItem>
+                      ))}
+                    </div>
                   </SelectContent>
                 </Select>
               </div>
@@ -134,12 +140,14 @@ export function QuickSearchForm() {
                   <SelectTrigger id="quick-part">
                     <SelectValue placeholder="Select part" />
                   </SelectTrigger>
-                  <SelectContent className="max-h-[200px] overflow-y-auto">
-                    {parts.map((p) => (
-                      <SelectItem key={p} value={p}>
-                        {p}
-                      </SelectItem>
-                    ))}
+                  <SelectContent style={{ maxHeight: '250px', overflowY: 'scroll' }} className="select-dropdown-with-scrollbar">
+                    <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
+                      {parts.map((p: string) => (
+                        <SelectItem key={p} value={p}>
+                          {p}
+                        </SelectItem>
+                      ))}
+                    </div>
                   </SelectContent>
                 </Select>
               </div>
@@ -155,7 +163,7 @@ export function QuickSearchForm() {
                   <SelectValue placeholder="Select brand" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.keys(brandModels).map((b) => (
+                  {Object.keys(brandModels).map((b: string) => (
                     <SelectItem key={b} value={b}>
                       {b}
                     </SelectItem>
@@ -171,7 +179,7 @@ export function QuickSearchForm() {
                   <SelectValue placeholder="Select model" />
                 </SelectTrigger>
                 <SelectContent>
-                  {availableModels.map((m) => (
+                  {availableModels.map((m: string) => (
                     <SelectItem key={m} value={m}>
                       {m}
                     </SelectItem>
@@ -186,12 +194,14 @@ export function QuickSearchForm() {
                 <SelectTrigger id="quick-year">
                   <SelectValue placeholder="Select year" />
                 </SelectTrigger>
-                <SelectContent className="max-h-[200px] overflow-y-auto">
-                  {years.map((y) => (
-                    <SelectItem key={y} value={y}>
-                      {y}
-                    </SelectItem>
-                  ))}
+                <SelectContent style={{ maxHeight: '250px', overflowY: 'scroll' }} className="select-dropdown-with-scrollbar">
+                  <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
+                    {years.map((y: string) => (
+                      <SelectItem key={y} value={y}>
+                        {y}
+                      </SelectItem>
+                    ))}
+                  </div>
                 </SelectContent>
               </Select>
             </div>
@@ -202,12 +212,14 @@ export function QuickSearchForm() {
                 <SelectTrigger id="quick-part">
                   <SelectValue placeholder="Select part" />
                 </SelectTrigger>
-                <SelectContent className="max-h-[200px] overflow-y-auto">
-                  {parts.map((p) => (
-                    <SelectItem key={p} value={p}>
-                      {p}
-                    </SelectItem>
-                  ))}
+                <SelectContent style={{ maxHeight: '250px', overflowY: 'scroll' }} className="select-dropdown-with-scrollbar">
+                  <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
+                    {parts.map((p: string) => (
+                      <SelectItem key={p} value={p}>
+                        {p}
+                      </SelectItem>
+                    ))}
+                  </div>
                 </SelectContent>
               </Select>
             </div>
