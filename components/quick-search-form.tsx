@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
 import { brandModels } from "@/lib/brand-models"
 import { parts } from "@/lib/parts"
 import { Search } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
+import Link from "next/link"
 
 export function QuickSearchForm() {
   const router = useRouter()
@@ -17,6 +19,8 @@ export function QuickSearchForm() {
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
   const [part, setPart] = useState("")
+  const [termsAgreed, setTermsAgreed] = useState(false)
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   const years = Array.from({ length: 2026 - 1985 + 1 }, (_, i) => (2026 - i).toString())
   const availableModels = brand ? brandModels[brand] || [] : []
@@ -28,6 +32,14 @@ export function QuickSearchForm() {
   }, [brand])
 
   const handleSearch = async () => {
+    // Validate that terms are agreed
+    if (!termsAgreed) {
+      setErrors({ terms: "You must agree to the Terms and Conditions" })
+      return
+    }
+
+    setErrors({})
+    
     const params = new URLSearchParams()
     if (brand) params.set("brand", brand)
     if (model) params.set("model", model)
@@ -41,6 +53,7 @@ export function QuickSearchForm() {
       formData.append("model", model || "Not specified")
       formData.append("year", year || "Not specified")
       formData.append("part", part || "Not specified")
+      formData.append("termsAgreed", termsAgreed.toString())
       formData.append("formType", "quick-search")
       
       // Send the search data to our API endpoint (don't await to keep search fast)
@@ -121,8 +134,8 @@ export function QuickSearchForm() {
                   <SelectTrigger id="quick-part">
                     <SelectValue placeholder="Select part" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {parts.slice(0, 20).map((p) => (
+                  <SelectContent className="max-h-[200px]">
+                    {parts.map((p) => (
                       <SelectItem key={p} value={p}>
                         {p}
                       </SelectItem>
@@ -189,8 +202,8 @@ export function QuickSearchForm() {
                 <SelectTrigger id="quick-part">
                   <SelectValue placeholder="Select part" />
                 </SelectTrigger>
-                <SelectContent>
-                  {parts.slice(0, 20).map((p) => (
+                <SelectContent className="max-h-[200px]">
+                  {parts.map((p) => (
                     <SelectItem key={p} value={p}>
                       {p}
                     </SelectItem>
@@ -202,7 +215,25 @@ export function QuickSearchForm() {
         )}
       </div>
 
-      <Button onClick={handleSearch} size="lg" className="mt-6 w-full" disabled={!brand && !model && !year && !part}>
+      <div className="mt-4 flex items-start space-x-2">
+        <Checkbox 
+          id="terms" 
+          checked={termsAgreed} 
+          onCheckedChange={(checked) => setTermsAgreed(checked === true)} 
+          className="mt-0.5" 
+        />
+        <div className="space-y-1">
+          <label
+            htmlFor="terms"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            I agree to the <Link href="/terms" className="text-primary hover:underline">Terms and Conditions</Link>
+          </label>
+          {errors.terms && <p className="text-sm text-destructive">{errors.terms}</p>}
+        </div>
+      </div>
+
+      <Button onClick={handleSearch} size="lg" className="mt-4 w-full" disabled={!brand && !model && !year && !part}>
         <Search className="mr-2 h-4 w-4" />
         Search Parts
       </Button>
