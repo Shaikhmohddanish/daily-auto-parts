@@ -485,4 +485,60 @@ export const partsData: PartData[] = [
     compatibility: "Front and rear door applications",
     avgLifespan: "80,000-120,000 miles"
   },
+  // Add new parts from part-data/parts-data.ts with proper PartData structure
+  {
+    slug: "door-handle-in",
+    name: "Door Handle In",
+    image: "/door-handle-in.png",
+    link: "/parts/door-handle-in",
+    description: "Interior door handle components for easy door operation from inside the vehicle. High-quality construction for long-lasting performance.",
+    category: "Interior",
+    commonIssues: ["Breaking", "Sticking", "Loose operation", "Cable disconnection"],
+    compatibility: "Various door configurations and trim levels",
+    avgLifespan: "Vehicle lifetime with normal use"
+  },
+  {
+    slug: "head-lights",
+    name: "Head Lights",
+    image: "/headlight.png",
+    link: "/parts/head-lights",
+    description: "Complete headlight assemblies for optimal nighttime visibility. Available with various bulb technologies for different lighting needs.",
+    category: "Lighting",
+    commonIssues: ["Dim output", "Moisture intrusion", "Yellowed lens", "Electrical failure"],
+    compatibility: "Direct fit for specific vehicle applications",
+    avgLifespan: "10-15 years"
+  },
+  {
+    slug: "tail-light",
+    name: "Tail Light",
+    image: "/tail-light.jpg",
+    link: "/parts/tail-light",
+    description: "Tail light assemblies for rear vehicle illumination and signaling. DOT-compliant units with proper lens coloration and light output.",
+    category: "Lighting",
+    commonIssues: ["Burned out bulbs", "Cracked lens", "Water infiltration", "Connection problems"],
+    compatibility: "OEM replacement and custom styling options",
+    avgLifespan: "10-15 years"
+  },
+  {
+    slug: "window-glass-motor",
+    name: "Window Glass Motor",
+    image: "/window-glass-motor.png",
+    link: "/parts/window-glass-motor",
+    description: "Electric window motors for power window operation. Includes regulators and mounting hardware for complete window system repair.",
+    category: "Electrical",
+    commonIssues: ["Slow operation", "Complete failure", "Strange noises", "Intermittent function"],
+    compatibility: "Front and rear door applications",
+    avgLifespan: "80,000-120,000 miles"
+  },
+  {
+    slug: "steering",
+    name: "Steering",
+    image: "/steering.png",
+    link: "/parts/steering",
+    description: "Complete steering system components including wheels, columns, and linkage. Ensures responsive and accurate vehicle control.",
+    category: "Steering",
+    commonIssues: ["Play in steering", "Hard turning", "Noise during turning", "Vibration"],
+    compatibility: "Power and manual steering systems",
+    avgLifespan: "Vehicle lifetime with proper maintenance"
+  }
 ]

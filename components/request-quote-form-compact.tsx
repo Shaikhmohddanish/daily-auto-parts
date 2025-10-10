@@ -94,9 +94,29 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
 
     setIsLoading(true)
 
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      // Create FormData object to send to the API
+      const formData = new FormData()
+      formData.append("brand", brand)
+      formData.append("model", model)
+      formData.append("year", year)
+      formData.append("part", part)
+      formData.append("fullName", fullName)
+      formData.append("email", email)
+      formData.append("phone", phone)
+      formData.append("zip", zip)
+      formData.append("vin", vin)
+      formData.append("formType", "request-quote-form-compact")
+
+      // Send the data to our API endpoint
+      const response = await fetch("/api/google-form-proxy", {
+        method: "POST",
+        body: formData
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form")
+      }
       
       toast({
         title: "Quote request sent!",

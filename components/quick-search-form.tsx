@@ -27,13 +27,33 @@ export function QuickSearchForm() {
     }
   }, [brand])
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const params = new URLSearchParams()
     if (brand) params.set("brand", brand)
     if (model) params.set("model", model)
     if (year) params.set("year", year)
     if (part) params.set("part", part)
 
+    // Log search to Google Form for analytics (optional)
+    try {
+      const formData = new FormData()
+      formData.append("brand", brand || "Not specified")
+      formData.append("model", model || "Not specified")
+      formData.append("year", year || "Not specified")
+      formData.append("part", part || "Not specified")
+      formData.append("formType", "quick-search")
+      
+      // Send the search data to our API endpoint (don't await to keep search fast)
+      fetch("/api/google-form-proxy", {
+        method: "POST",
+        body: formData
+      }).catch(err => console.error("Error logging search:", err))
+    } catch (error) {
+      // Just log the error but continue with search
+      console.error("Error logging search:", error)
+    }
+
+    // Navigate to search results
     router.push(`/parts?${params.toString()}`)
   }
 

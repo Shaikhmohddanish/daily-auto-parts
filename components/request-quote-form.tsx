@@ -68,7 +68,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!validate()) {
@@ -80,18 +80,52 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
       return
     }
 
-    setSubmitted(true)
-    toast({
-      title: "Quote Request Received!",
-      description: "Thanks! A parts specialist will contact you shortly.",
-    })
+    try {
+      // Create FormData object to send to the API
+      const formData = new FormData()
+      formData.append("brand", brand)
+      formData.append("model", model)
+      formData.append("year", year)
+      formData.append("part", part)
+      formData.append("quantity", quantity)
+      formData.append("fullName", fullName)
+      formData.append("email", email)
+      formData.append("phone", phone)
+      formData.append("zip", zip)
+      formData.append("vin", vin)
+      formData.append("notes", notes)
+      formData.append("formType", "request-quote-form")
 
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      ;(window as any).gtag("event", "lead_submit", {
-        brand,
-        model,
-        year,
-        part,
+      // Send the data to our API endpoint
+      const response = await fetch("/api/google-form-proxy", {
+        method: "POST",
+        body: formData
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form")
+      }
+
+      setSubmitted(true)
+      toast({
+        title: "Quote Request Received!",
+        description: "Thanks! A parts specialist will contact you shortly.",
+      })
+
+      if (typeof window !== "undefined" && (window as any).gtag) {
+        ;(window as any).gtag("event", "lead_submit", {
+          brand,
+          model,
+          year,
+          part,
+        })
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      toast({
+        title: "Submission Error",
+        description: "There was a problem submitting your request. Please try again.",
+        variant: "destructive",
       })
     }
   }
