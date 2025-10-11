@@ -225,7 +225,10 @@ export default function RootLayout({
           <Toaster />
         </Suspense>
         <Analytics />
-        <SpeedInsights />
+        <SpeedInsights 
+          sampleRate={1.0}
+          debug={true}
+        />
         <Suspense fallback={null}>
           <ScrollToTop />
         </Suspense>
