@@ -31,6 +31,8 @@ export function QuickSearchForm() {
   const [termsAgreed, setTermsAgreed] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [step, setStep] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
   
   // Apply scrollbar fix
   useScrollbarFix()
@@ -72,6 +74,7 @@ export function QuickSearchForm() {
     }
 
     setErrors({})
+    setIsLoading(true)
     
     // Create FormData object to send to the API
     try {
@@ -104,6 +107,9 @@ export function QuickSearchForm() {
         description: "We'll get back to you shortly with the requested information.",
       });
       
+      // Set submitted state to true
+      setSubmitted(true)
+      
       // Reset form
       setMake("");
       setModel("");
@@ -113,7 +119,13 @@ export function QuickSearchForm() {
       setEmail("");
       setContact("");
       setZip("");
+      setTermsAgreed(false);
       setStep(1);
+      
+      // Reset submitted state after 3 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
       
     } catch (error) {
       console.error("Error submitting form:", error)
@@ -122,12 +134,14 @@ export function QuickSearchForm() {
         description: "Please try again later",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <div className="rounded-lg border bg-card p-6 shadow-sm">
-      {step === 1 && (
+      {!submitted && step === 1 && (
         <div className={isMobile ? "grid grid-cols-2 gap-4" : "grid gap-4 sm:grid-cols-2 lg:grid-cols-4"}>
           {isMobile ? (
             <>
@@ -280,7 +294,7 @@ export function QuickSearchForm() {
       </div>
       )}
 
-      {step === 1 ? (
+      {!submitted && step === 1 && (
         <div className="mt-4 flex items-start space-x-2">
           <Checkbox 
             id="terms" 
@@ -298,7 +312,9 @@ export function QuickSearchForm() {
             {errors.terms && <p className="text-sm text-destructive">{errors.terms}</p>}
           </div>
         </div>
-      ) : (
+      )}
+
+      {!submitted && step === 2 && (
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="quick-name">Name <span className="text-destructive">*</span></Label>
@@ -363,15 +379,42 @@ export function QuickSearchForm() {
         </div>
       )}
 
-      {step === 1 ? (
+      {submitted ? (
+        <div className="mt-6 text-center">
+          <div className="rounded-full bg-green-100 p-3 inline-flex mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 11L12 14L22 4" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold mb-2">Request Sent Successfully!</h3>
+          <p className="text-muted-foreground">
+            Thank you for your request. Our team will contact you shortly.
+          </p>
+        </div>
+      ) : step === 1 ? (
         <Button onClick={() => setStep(2)} size="lg" className="mt-4 w-full" disabled={!make && !model && !year && !part}>
           <Search className="mr-2 h-4 w-4" />
           Next
         </Button>
       ) : (
-        <Button onClick={handleSearch} size="lg" className="mt-4 w-full" disabled={!name || !email || !contact || !zip}>
-          <Search className="mr-2 h-4 w-4" />
-          Search Parts
+        <Button 
+          onClick={handleSearch} 
+          size="lg" 
+          className="mt-4 w-full" 
+          disabled={isLoading || !name || !email || !contact || !zip}
+        >
+          {isLoading ? (
+            <>
+              <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-opacity-25 border-t-white"></span>
+              Processing...
+            </>
+          ) : (
+            <>
+              <Search className="mr-2 h-4 w-4" />
+              Search Parts
+            </>
+          )}
         </Button>
       )}
     </div>
