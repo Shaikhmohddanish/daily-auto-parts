@@ -424,15 +424,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="website">Website</Label>
-        <Input
-          id="website"
-          value={website}
-          readOnly
-          className="bg-muted"
-        />
-      </div>
+      {/* Website field is hardcoded and not shown in UI */}
 
       <div className="flex items-start space-x-2 mt-4">
         <Checkbox 
