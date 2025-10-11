@@ -542,10 +542,10 @@ export const partsData: PartData[] = [
     avgLifespan: "Vehicle lifetime with proper maintenance"
   },
   {
-    slug: "ac-compressor",
+    slug: "ac-compressor-2",
     name: "A/C Compressor",
     image: "/ac-compressor.png",
-    link: "/parts/ac-compressor",
+    link: "/parts/ac-compressor-2",
     description: "A/C compressors that are tested and guaranteed to work. Keep your vehicle cool with our high-quality A/C components.",
     category: "Climate Control",
     commonIssues: ["No cold air", "Noisy operation", "Clutch failure", "Refrigerant leaks"],
@@ -553,10 +553,10 @@ export const partsData: PartData[] = [
     avgLifespan: "80,000-100,000 miles"
   },
   {
-    slug: "air-bag",
+    slug: "air-bag-2",
     name: "Air Bag",
     image: "/air-bag.png",
-    link: "/parts/air-bag",
+    link: "/parts/air-bag-2",
     description: "Safety-tested airbag components to keep your vehicle's safety systems fully operational.",
     category: "Safety",
     commonIssues: ["Warning light on", "Failed deployment", "Accidental deployment"],
@@ -564,10 +564,10 @@ export const partsData: PartData[] = [
     avgLifespan: "Vehicle lifetime"
   },
   {
-    slug: "fog-lamp",
+    slug: "fog-lamp-2",
     name: "Fog Lamp",
     image: "/fog-lamp.jpg",
-    link: "/parts/fog-lamp",
+    link: "/parts/fog-lamp-2",
     description: "High-quality fog lamps that provide improved visibility in poor weather conditions.",
     category: "Lighting",
     commonIssues: ["Bulb failure", "Water ingress", "Wiring problems", "Lens fogging"],
@@ -575,10 +575,10 @@ export const partsData: PartData[] = [
     avgLifespan: "5-10 years"
   },
   {
-    slug: "door-mirror",
+    slug: "door-mirror-2",
     name: "Door Mirror",
     image: "/door-mirror.jpg",
-    link: "/parts/door-mirror",
+    link: "/parts/door-mirror-2",
     description: "Side mirrors for all vehicle makes and models, available with power adjustment, heating, and signal integration.",
     category: "Exterior",
     commonIssues: ["Motor failure", "Glass breakage", "Signal light failure"],
@@ -586,10 +586,10 @@ export const partsData: PartData[] = [
     avgLifespan: "Vehicle lifetime with proper care"
   },
   {
-    slug: "drive-shaft-front",
+    slug: "drive-shaft-front-2",
     name: "Drive Shaft Front",
     image: "/driving-shaft-front.jpg",
-    link: "/parts/drive-shaft-front",
+    link: "/parts/drive-shaft-front-2",
     description: "Front drive shafts that provide smooth power delivery from the transmission to your wheels.",
     category: "Drivetrain",
     commonIssues: ["Vibration", "Clicking noises", "CV joint failure"],
@@ -597,10 +597,10 @@ export const partsData: PartData[] = [
     avgLifespan: "100,000-150,000 miles"
   },
   {
-    slug: "drive-shaft-rear",
+    slug: "drive-shaft-rear-2",
     name: "Drive Shaft Rear",
     image: "/drive-shaft-rear.jpg",
-    link: "/parts/drive-shaft-rear",
+    link: "/parts/drive-shaft-rear-2",
     description: "Rear drive shafts engineered for durability and smooth power delivery.",
     category: "Drivetrain",
     commonIssues: ["Universal joint failure", "Shaft imbalance", "Carrier bearing failure"],
@@ -608,10 +608,10 @@ export const partsData: PartData[] = [
     avgLifespan: "100,000-150,000 miles"
   },
   {
-    slug: "speedometer",
+    slug: "speedometer-2",
     name: "Speedometer",
     image: "/speedometer.jpg",
-    link: "/parts/speedometer",
+    link: "/parts/speedometer-2",
     description: "Accurate speedometer assemblies to keep your vehicle's instrumentation functioning properly.",
     category: "Instruments",
     commonIssues: ["Inaccurate readings", "Erratic needle movement", "Digital display failure"],
@@ -619,10 +619,10 @@ export const partsData: PartData[] = [
     avgLifespan: "Vehicle lifetime with occasional calibration"
   },
   {
-    slug: "steering-column",
+    slug: "steering-column-2",
     name: "Steering Column",
     image: "/steering-column.jpg",
-    link: "/parts/steering-column",
+    link: "/parts/steering-column-2",
     description: "Quality steering columns that provide precise steering control and reliable operation.",
     category: "Steering",
     commonIssues: ["Tilt mechanism failure", "Ignition switch issues", "Column bearing wear"],
@@ -630,10 +630,10 @@ export const partsData: PartData[] = [
     avgLifespan: "Vehicle lifetime"
   },
   {
-    slug: "thermostat-housing",
+    slug: "thermostat-housing-2",
     name: "Thermostat Housing",
     image: "/thermostat-housing.jpg",
-    link: "/parts/thermostat-housing",
+    link: "/parts/thermostat-housing-2",
     description: "Thermostat housings designed to maintain proper engine operating temperature and prevent leaks.",
     category: "Cooling",
     commonIssues: ["Coolant leaks", "Cracking", "Gasket failure"],
@@ -641,10 +641,10 @@ export const partsData: PartData[] = [
     avgLifespan: "5-7 years"
   },
   {
-    slug: "window-glass-motor",
+    slug: "window-glass-motor-2",
     name: "Window Glass Motor",
     image: "/window-glass-motor.png",
-    link: "/parts/window-glass-motor",
+    link: "/parts/window-glass-motor-2",
     description: "Window motors that provide smooth and reliable operation for your vehicle's power windows.",
     category: "Electrical",
     commonIssues: ["Slow operation", "Motor burnout", "Grinding noises"],
