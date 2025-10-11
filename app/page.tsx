@@ -8,6 +8,7 @@ import { QuickSearchForm } from "@/components/quick-search-form"
 import { TopBrands } from "@/components/top-brands"
 import { Counter } from "@/components/ui/counter"
 import { partsData } from "@/lib/parts-data"
+import QuoteButton from "@/components/quote-button"
 import { Shield, Truck, Award, HeadphonesIcon, CheckCircle, Star, Package } from "lucide-react"
 
 export default function HomePage() {
@@ -84,19 +85,8 @@ export default function HomePage() {
                 <Button asChild size="lg" className="text-base">
                   <Link href="/parts">Browse Parts</Link>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="text-base bg-transparent"
-                  onClick={() => {
-                    const element = document.getElementById('quote-form');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  Get a Quote
-                </Button>
+                {/* Using client component for interactive button */}
+                <QuoteButton />
               </div>
 
               {/* Trust Badges */}
