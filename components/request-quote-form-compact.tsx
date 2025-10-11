@@ -22,15 +22,16 @@ interface RequestQuoteFormCompactProps {
 export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompactProps) {
   const { toast } = useToast()
   const isMobile = useIsMobile()
-  const [brand, setBrand] = useState("")
+  const [make, setMake] = useState("")
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
   const [part, setPart] = useState(initialPart || "")
-  const [fullName, setFullName] = useState("")
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
+  const [contact, setContact] = useState("")
   const [zip, setZip] = useState("")
   const [vin, setVin] = useState("")
+  const [website] = useState("dailyautoparts.com")
   const [gdprConsent, setGdprConsent] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -38,33 +39,33 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
   const [activeStep, setActiveStep] = useState(1)
 
   const years = Array.from({ length: 2026 - 1985 + 1 }, (_, i) => (2026 - i).toString())
-  const availableModels: string[] = brand ? brandModels[brand] || [] : []
+  const availableModels: string[] = make ? brandModels[make] || [] : []
 
   useEffect(() => {
-    if (brand) {
+    if (make) {
       setModel("")
     }
-  }, [brand])
+  }, [make])
 
   const validate = (step?: number) => {
     const newErrors: Record<string, string> = {}
     
     if (step === 1 || !step) {
-      if (!brand) newErrors.brand = "Brand is required"
+      if (!make) newErrors.make = "Make is required"
       if (!model) newErrors.model = "Model is required"
       if (!year) newErrors.year = "Year is required"
       if (!part) newErrors.part = "Part is required"
     }
     
     if (step === 2 || !step) {
-      if (!fullName) newErrors.fullName = "Full name is required"
+      if (!name) newErrors.name = "Name is required"
       if (!email) newErrors.email = "Email is required"
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         newErrors.email = "Invalid email format"
       }
-      if (!phone) newErrors.phone = "Phone is required"
-      if (phone && !/^\d{10,}$/.test(phone.replace(/\D/g, ""))) {
-        newErrors.phone = "Phone must be at least 10 digits"
+      if (!contact) newErrors.contact = "Contact number is required"
+      if (contact && !/^\d{10,}$/.test(contact.replace(/\D/g, ""))) {
+        newErrors.contact = "Contact number must be at least 10 digits"
       }
       if (!zip) newErrors.zip = "ZIP/Postal code is required"
       if (!gdprConsent) newErrors.gdpr = "You must agree to the privacy policy"
@@ -97,15 +98,16 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
     try {
       // Create FormData object to send to the API
       const formData = new FormData()
-      formData.append("brand", brand)
+      formData.append("make", make)
       formData.append("model", model)
       formData.append("year", year)
       formData.append("part", part)
-      formData.append("fullName", fullName)
+      formData.append("name", name)
       formData.append("email", email)
-      formData.append("phone", phone)
+      formData.append("contact", contact)
       formData.append("zip", zip)
       formData.append("vin", vin)
+      formData.append("website", website)
       formData.append("formType", "request-quote-form-compact")
 
       // Send the data to our API endpoint
@@ -127,13 +129,13 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
       setIsLoading(false)
       
       // Reset form
-      setBrand("")
+      setMake("")
       setModel("")
       setYear("")
       setPart("")
-      setFullName("")
+      setName("")
       setEmail("")
-      setPhone("")
+      setContact("")
       setZip("")
       setVin("")
       setGdprConsent(false)
@@ -216,12 +218,12 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                   <div className="space-y-4">
                     {/* Mobile layout - vertically stacked */}
                     <div>
-                      <Label htmlFor="brand-mobile" className="text-sm font-medium block mb-1.5">
-                        Brand <span className="text-destructive">*</span>
+                      <Label htmlFor="make-mobile" className="text-sm font-medium block mb-1.5">
+                        Make <span className="text-destructive">*</span>
                       </Label>
-                      <Select value={brand} onValueChange={setBrand}>
-                        <SelectTrigger id="brand-mobile" className={`h-11 w-full ${errors.brand ? "border-destructive" : ""}`}>
-                          <SelectValue placeholder="Select brand" />
+                      <Select value={make} onValueChange={setMake}>
+                        <SelectTrigger id="make-mobile" className={`h-11 w-full ${errors.make ? "border-destructive" : ""}`}>
+                          <SelectValue placeholder="Select make" />
                         </SelectTrigger>
                         <SelectContent>
                           {Object.keys(brandModels).map((b: string) => (
@@ -231,16 +233,16 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                           ))}
                         </SelectContent>
                       </Select>
-                      {errors.brand && <p className="text-xs text-destructive mt-1">{errors.brand}</p>}
+                      {errors.make && <p className="text-xs text-destructive mt-1">{errors.make}</p>}
                     </div>
 
                     <div>
                       <Label htmlFor="model-mobile" className="text-sm font-medium block mb-1.5">
                         Model <span className="text-destructive">*</span>
                       </Label>
-                      <Select value={model} onValueChange={setModel} disabled={!brand}>
+                      <Select value={model} onValueChange={setModel} disabled={!make}>
                         <SelectTrigger id="model-mobile" className={`h-11 w-full ${errors.model ? "border-destructive" : ""}`}>
-                          <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
+                          <SelectValue placeholder={make ? "Select model" : "Select make first"} />
                         </SelectTrigger>
                         <SelectContent>
                           {availableModels.map((m: string) => (
@@ -295,30 +297,30 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                   <>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="brand-desktop" className="text-sm">Brand <span className="text-destructive">*</span></Label>
-                        <Select value={brand} onValueChange={setBrand}>
-                          <SelectTrigger id="brand-desktop" className={`h-10 ${errors.brand ? "border-destructive" : ""}`}>
-                            <SelectValue placeholder="Select brand" />
+                        <Label htmlFor="make-desktop" className="text-sm">Make <span className="text-destructive">*</span></Label>
+                        <Select value={make} onValueChange={setMake}>
+                          <SelectTrigger id="make-desktop" className={`h-10 ${errors.make ? "border-destructive" : ""}`}>
+                            <SelectValue placeholder="Select make" />
                           </SelectTrigger>
                           <SelectContent>
-                            {Object.keys(brandModels).map((b) => (
+                            {Object.keys(brandModels).map((b: string) => (
                               <SelectItem key={b} value={b}>
                                 {b}
                               </SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
-                        {errors.brand && <p className="text-xs text-destructive mt-1">{errors.brand}</p>}
+                        {errors.make && <p className="text-xs text-destructive mt-1">{errors.make}</p>}
                       </div>
 
                       <div className="space-y-2">
                         <Label htmlFor="model-desktop" className="text-sm">Model <span className="text-destructive">*</span></Label>
-                        <Select value={model} onValueChange={setModel} disabled={!brand}>
+                        <Select value={model} onValueChange={setModel} disabled={!make}>
                           <SelectTrigger id="model-desktop" className={`h-10 ${errors.model ? "border-destructive" : ""}`}>
-                            <SelectValue placeholder={brand ? "Select model" : "Select brand first"} />
+                            <SelectValue placeholder={make ? "Select model" : "Select make first"} />
                           </SelectTrigger>
                           <SelectContent>
-                            {availableModels.map((m) => (
+                            {availableModels.map((m: string) => (
                               <SelectItem key={m} value={m}>
                                 {m}
                               </SelectItem>
@@ -390,15 +392,15 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                   {isMobile ? (
                     <div className="space-y-4">
                       <div>
-                        <Label htmlFor="fullName-mobile" className="text-sm font-medium block mb-1.5">Name <span className="text-destructive">*</span></Label>
+                        <Label htmlFor="name-mobile" className="text-sm font-medium block mb-1.5">Name <span className="text-destructive">*</span></Label>
                         <Input
-                          id="fullName-mobile"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
+                          id="name-mobile"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                           placeholder="Your full name"
-                          className={`h-11 ${errors.fullName ? "border-destructive" : ""}`}
+                          className={`h-11 ${errors.name ? "border-destructive" : ""}`}
                         />
-                        {errors.fullName && <p className="text-xs text-destructive mt-1">{errors.fullName}</p>}
+                        {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
                       </div>
 
                       <div>
@@ -418,19 +420,19 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                       </div>
 
                       <div>
-                        <Label htmlFor="phone-mobile" className="text-sm font-medium block mb-1.5">Phone <span className="text-destructive">*</span></Label>
+                        <Label htmlFor="contact-mobile" className="text-sm font-medium block mb-1.5">Phone <span className="text-destructive">*</span></Label>
                         <div className="relative">
                           <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
-                            id="phone-mobile"
+                            id="contact-mobile"
                             type="tel"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            value={contact}
+                            onChange={(e) => setContact(e.target.value)}
                             placeholder="(555) 123-4567"
-                            className={`h-11 pl-10 ${errors.phone ? "border-destructive" : ""}`}
+                            className={`h-11 pl-10 ${errors.contact ? "border-destructive" : ""}`}
                           />
                         </div>
-                        {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
+                        {errors.contact && <p className="text-xs text-destructive mt-1">{errors.contact}</p>}
                       </div>
 
                       <div>
@@ -484,15 +486,15 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                   ) : (
                     <>
                       <div className="space-y-2">
-                        <Label htmlFor="fullName" className="text-sm">Name <span className="text-destructive">*</span></Label>
+                        <Label htmlFor="name" className="text-sm">Name <span className="text-destructive">*</span></Label>
                         <Input
-                          id="fullName"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
+                          id="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                           placeholder="Your full name"
-                          className={`h-10 ${errors.fullName ? "border-destructive" : ""}`}
+                          className={`h-10 ${errors.name ? "border-destructive" : ""}`}
                         />
-                        {errors.fullName && <p className="text-xs text-destructive mt-1">{errors.fullName}</p>}
+                        {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
@@ -513,19 +515,19 @@ export function RequestQuoteFormCompact({ initialPart }: RequestQuoteFormCompact
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="phone" className="text-sm">Phone <span className="text-destructive">*</span></Label>
+                          <Label htmlFor="contact" className="text-sm">Phone <span className="text-destructive">*</span></Label>
                           <div className="relative">
                             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
-                              id="phone"
+                              id="contact"
                               type="tel"
-                              value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
+                              value={contact}
+                              onChange={(e) => setContact(e.target.value)}
                               placeholder="(555) 123-4567"
-                              className={`h-10 pl-10 ${errors.phone ? "border-destructive" : ""}`}
+                              className={`h-10 pl-10 ${errors.contact ? "border-destructive" : ""}`}
                             />
                           </div>
-                          {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
+                          {errors.contact && <p className="text-xs text-destructive mt-1">{errors.contact}</p>}
                         </div>
                       </div>
 

@@ -21,44 +21,45 @@ interface RequestQuoteFormProps {
 export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
   const { toast } = useToast()
   const isMobile = useIsMobile()
-  const [brand, setBrand] = useState("")
+  const [make, setMake] = useState("")
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
   const [part, setPart] = useState(initialPart || "")
   const [quantity, setQuantity] = useState("1")
-  const [fullName, setFullName] = useState("")
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
+  const [contact, setContact] = useState("")
   const [zip, setZip] = useState("")
   const [vin, setVin] = useState("")
   const [notes, setNotes] = useState("")
+  const [website] = useState("dailyautoparts.com")
   const [gdprConsent, setGdprConsent] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const years = Array.from({ length: 2026 - 1985 + 1 }, (_, i) => (2026 - i).toString())
-  const availableModels: string[] = brand ? brandModels[brand] || [] : []
+  const availableModels: string[] = make ? brandModels[make] || [] : []
 
   useEffect(() => {
-    if (brand) {
+    if (make) {
       setModel("")
     }
-  }, [brand])
+  }, [make])
 
   const validate = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!brand) newErrors.brand = "Brand is required"
+    if (!make) newErrors.make = "Make is required"
     if (!model) newErrors.model = "Model is required"
     if (!year) newErrors.year = "Year is required"
     if (!part) newErrors.part = "Part is required"
-    if (!fullName) newErrors.fullName = "Full name is required"
-    if (!email && !phone) newErrors.contact = "Email or phone is required"
+    if (!name) newErrors.name = "Name is required"
+    if (!email && !contact) newErrors.contact = "Email or contact number is required"
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = "Invalid email format"
     }
-    if (phone && !/^\d{10,}$/.test(phone.replace(/\D/g, ""))) {
-      newErrors.phone = "Phone must be at least 10 digits"
+    if (contact && !/^\d{10,}$/.test(contact.replace(/\D/g, ""))) {
+      newErrors.contact = "Contact number must be at least 10 digits"
     }
     if (!zip) newErrors.zip = "ZIP/Postal code is required"
     if (Number.parseInt(quantity) < 1) newErrors.quantity = "Quantity must be at least 1"
@@ -83,17 +84,18 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
     try {
       // Create FormData object to send to the API
       const formData = new FormData()
-      formData.append("brand", brand)
+      formData.append("make", make)
       formData.append("model", model)
       formData.append("year", year)
       formData.append("part", part)
       formData.append("quantity", quantity)
-      formData.append("fullName", fullName)
+      formData.append("name", name)
       formData.append("email", email)
-      formData.append("phone", phone)
+      formData.append("contact", contact)
       formData.append("zip", zip)
       formData.append("vin", vin)
       formData.append("notes", notes)
+      formData.append("website", website)
       formData.append("formType", "request-quote-form")
 
       // Send the data to our API endpoint
@@ -114,7 +116,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
 
       if (typeof window !== "undefined" && (window as any).gtag) {
         ;(window as any).gtag("event", "lead_submit", {
-          brand,
+          make: make,
           model,
           year,
           part,
@@ -145,10 +147,10 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
         <div className="rounded-md bg-background p-4 text-left border">
           <h4 className="font-medium">Your Request Summary:</h4>
           <div className="mt-2 space-y-1 text-sm">
-            <p><span className="font-medium">Vehicle:</span> {year} {brand} {model}</p>
+            <p><span className="font-medium">Vehicle:</span> {year} {make} {model}</p>
             <p><span className="font-medium">Part:</span> {part}</p>
             <p><span className="font-medium">Quantity:</span> {quantity}</p>
-            <p><span className="font-medium">Contact:</span> {fullName}</p>
+            <p><span className="font-medium">Contact:</span> {name}</p>
           </div>
         </div>
         <Button onClick={() => setSubmitted(false)} className="mt-4 w-full">
@@ -166,31 +168,31 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
         {isMobile ? (
           <>
             {/* Mobile Layout */}
-            {/* Row 1: Vehicle Brand and Vehicle Model */}
+            {/* Row 1: Vehicle Make and Vehicle Model */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="brand">Vehicle Brand *</Label>
-                <Select value={brand} onValueChange={setBrand}>
-                  <SelectTrigger id="brand" className={errors.brand ? "border-destructive" : ""}>
-                    <SelectValue placeholder="Select brand" />
+                <Label htmlFor="make">Vehicle Make *</Label>
+                <Select value={make} onValueChange={setMake}>
+                  <SelectTrigger id="make" className={errors.make ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select make" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.keys(brandModels).map((b) => (
+                    {Object.keys(brandModels).map((b: string) => (
                       <SelectItem key={b} value={b}>{b}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.brand && <p className="text-sm text-destructive">{errors.brand}</p>}
+                {errors.make && <p className="text-sm text-destructive">{errors.make}</p>}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="model">Vehicle Model *</Label>
-                <Select value={model} onValueChange={setModel} disabled={!brand}>
+                <Select value={model} onValueChange={setModel} disabled={!make}>
                   <SelectTrigger id="model" className={errors.model ? "border-destructive" : ""}>
                     <SelectValue placeholder="Select model" />
                   </SelectTrigger>
                   <SelectContent>
-                    {availableModels.map((m) => (
+                    {availableModels.map((m: string) => (
                       <SelectItem key={m} value={m}>{m}</SelectItem>
                     ))}
                   </SelectContent>
@@ -208,7 +210,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
-                    {years.map((y) => (
+                    {years.map((y: string) => (
                       <SelectItem key={y} value={y}>{y}</SelectItem>
                     ))}
                   </SelectContent>
@@ -239,7 +241,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
                     <SelectValue placeholder="Select part" />
                   </SelectTrigger>
                   <SelectContent>
-                    {parts.map((p) => (
+                    {parts.map((p: string) => (
                       <SelectItem key={p} value={p}>{p}</SelectItem>
                     ))}
                   </SelectContent>
@@ -264,28 +266,28 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
             {/* Desktop Layout - Original layout */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="brand">Vehicle Brand *</Label>
-                <Select value={brand} onValueChange={setBrand}>
-                  <SelectTrigger id="brand" className={errors.brand ? "border-destructive" : ""}>
-                    <SelectValue placeholder="Select brand" />
+                <Label htmlFor="make">Vehicle Make *</Label>
+                <Select value={make} onValueChange={setMake}>
+                  <SelectTrigger id="make" className={errors.make ? "border-destructive" : ""}>
+                    <SelectValue placeholder="Select make" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.keys(brandModels).map((b) => (
+                    {Object.keys(brandModels).map((b: string) => (
                       <SelectItem key={b} value={b}>{b}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.brand && <p className="text-sm text-destructive">{errors.brand}</p>}
+                {errors.make && <p className="text-sm text-destructive">{errors.make}</p>}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="model">Vehicle Model *</Label>
-                <Select value={model} onValueChange={setModel} disabled={!brand}>
+                <Select value={model} onValueChange={setModel} disabled={!make}>
                   <SelectTrigger id="model" className={errors.model ? "border-destructive" : ""}>
                     <SelectValue placeholder="Select model" />
                   </SelectTrigger>
                   <SelectContent>
-                    {availableModels.map((m) => (
+                    {availableModels.map((m: string) => (
                       <SelectItem key={m} value={m}>{m}</SelectItem>
                     ))}
                   </SelectContent>
@@ -302,7 +304,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent>
-                    {years.map((y) => (
+                    {years.map((y: string) => (
                       <SelectItem key={y} value={y}>{y}</SelectItem>
                     ))}
                   </SelectContent>
@@ -331,7 +333,7 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
                   <SelectValue placeholder="Select part" />
                 </SelectTrigger>
                 <SelectContent>
-                  {parts.map((p) => (
+                  {parts.map((p: string) => (
                     <SelectItem key={p} value={p}>{p}</SelectItem>
                   ))}
                 </SelectContent>
@@ -357,15 +359,15 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
         <h3 className="font-semibold text-lg">Contact Information</h3>
         
         <div className="space-y-2">
-          <Label htmlFor="fullName">Full Name *</Label>
+          <Label htmlFor="name">Name *</Label>
           <Input
-            id="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder="Your full name"
-            className={errors.fullName ? "border-destructive" : ""}
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your name"
+            className={errors.name ? "border-destructive" : ""}
           />
-          {errors.fullName && <p className="text-sm text-destructive">{errors.fullName}</p>}
+          {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -383,16 +385,16 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number *</Label>
+            <Label htmlFor="contact">Contact Number *</Label>
             <Input
-              id="phone"
+              id="contact"
               type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
               placeholder="(555) 123-4567"
-              className={errors.phone ? "border-destructive" : ""}
+              className={errors.contact ? "border-destructive" : ""}
             />
-            {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
+            {errors.contact && <p className="text-sm text-destructive">{errors.contact}</p>}
           </div>
         </div>
 
@@ -419,6 +421,16 @@ export function RequestQuoteForm({ initialPart }: RequestQuoteFormProps) {
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Any specific requirements or questions about the part..."
           rows={3}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="website">Website</Label>
+        <Input
+          id="website"
+          value={website}
+          readOnly
+          className="bg-muted"
         />
       </div>
 
