@@ -84,8 +84,18 @@ export default function HomePage() {
                 <Button asChild size="lg" className="text-base">
                   <Link href="/parts">Browse Parts</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="text-base bg-transparent">
-                  <Link href="#quote-form">Get a Quote</Link>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-base bg-transparent"
+                  onClick={() => {
+                    const element = document.getElementById('quote-form');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  Get a Quote
                 </Button>
               </div>
 

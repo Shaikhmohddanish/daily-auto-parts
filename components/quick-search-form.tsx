@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -17,6 +18,7 @@ import Link from "next/link"
 export function QuickSearchForm() {
   const router = useRouter()
   const isMobile = useIsMobile()
+  const { toast } = useToast()
   const [make, setMake] = useState("")
   const [model, setModel] = useState("")
   const [year, setYear] = useState("")
@@ -71,13 +73,7 @@ export function QuickSearchForm() {
 
     setErrors({})
     
-    const params = new URLSearchParams()
-    if (make) params.set("make", make)
-    if (model) params.set("model", model)
-    if (year) params.set("year", year)
-    if (part) params.set("part", part)
-
-    // Log search to Google Form for analytics (optional)
+    // Create FormData object to send to the API
     try {
       const formData = new FormData()
       formData.append("make", make || "Not specified")
@@ -92,18 +88,41 @@ export function QuickSearchForm() {
       formData.append("termsAgreed", termsAgreed.toString())
       formData.append("formType", "quick-search")
       
-      // Send the search data to our API endpoint (don't await to keep search fast)
-      fetch("/api/google-form-proxy", {
+      // Send the form data directly to the API endpoint
+      const response = await fetch("/api/google-form-proxy", {
         method: "POST",
         body: formData
-      }).catch(err => console.error("Error logging search:", err))
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+      
+      // Show success message using toast or other notification
+      toast({
+        title: "Request submitted successfully!",
+        description: "We'll get back to you shortly with the requested information.",
+      });
+      
+      // Reset form
+      setMake("");
+      setModel("");
+      setYear("");
+      setPart("");
+      setName("");
+      setEmail("");
+      setContact("");
+      setZip("");
+      setStep(1);
+      
     } catch (error) {
-      // Just log the error but continue with search
-      console.error("Error logging search:", error)
+      console.error("Error submitting form:", error)
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+        variant: "destructive",
+      });
     }
-
-    // Navigate to search results
-    router.push(`/parts?${params.toString()}`)
   }
 
   return (
