@@ -225,7 +225,9 @@ export default function RootLayout({
           <FloatingPhoneButton />
           <Toaster />
         </Suspense>
-        <GoogleTag />
+        <Suspense fallback={null}>
+          <GoogleTag />
+        </Suspense>
         <Analytics />
         <SpeedInsights 
           sampleRate={1.0}
