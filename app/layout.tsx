@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { FloatingPhoneButton } from "@/components/floating-phone-button"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { Toaster } from "@/components/ui/toaster"
+import { GoogleTag } from "@/components/google-tag"
 import "./globals.css"
 import { Suspense } from "react"
 
@@ -125,18 +126,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17770283333" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-17770283333');
-            `,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -236,6 +225,7 @@ export default function RootLayout({
           <FloatingPhoneButton />
           <Toaster />
         </Suspense>
+        <GoogleTag />
         <Analytics />
         <SpeedInsights 
           sampleRate={1.0}
